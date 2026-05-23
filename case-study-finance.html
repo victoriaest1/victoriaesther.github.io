@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Case Study — Victoria G. Foïde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/case-study-finance.css" />
+</head>
+<body>
+  <div class="pt" id="pt"></div>
+  <div class="blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-back">← Back to Portfolio</a>
+    <span class="nav-logo">Victoria G. Foïde</span>
+    <span class="nav-tag">Finance & BI</span>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-meta reveal">
+      <span class="hero-chip chip-blue">Finance & BI</span>
+      <span class="hero-chip chip-muted">2024</span>
+      <span class="hero-chip chip-muted">SQL · Power BI · Tableau</span>
+    </div>
+    <h1 class="hero-h1 reveal rv2">
+      A business intelligence dashboard<br>that reduced reporting by <em>40%</em>
+    </h1>
+    <p class="hero-tagline reveal rv3">
+      Analysing 50,000+ transactional records to build an executive-grade BI dashboard —
+      eliminating 40% of manual reporting work and surfacing patterns invisible to the business.
+    </p>
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-val">50K+</div>
+        <div class="stat-key">Records processed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">40%</div>
+        <div class="stat-key">Manual reporting saved</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">12</div>
+        <div class="stat-key">KPIs tracked</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">3</div>
+        <div class="stat-key">Departments served</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD MOCKUP -->
+  <div class="dash-wrap">
+    <div class="dash-frame reveal">
+      <div class="dash-header">
+        <div class="dash-title-area">
+          <div class="dash-title-sm">Business Intelligence</div>
+          <div class="dash-title-main">Financial Overview — Q4 2024</div>
+        </div>
+        <div class="dash-filters">
+          <span class="dash-pill active">Q4</span>
+          <span class="dash-pill">YTD</span>
+          <span class="dash-pill">Custom</span>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-box k1">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-val">€2.4M</div>
+          <div class="kpi-delta delta-up">↑ 18% vs Q3</div>
+        </div>
+        <div class="kpi-box k2">
+          <div class="kpi-label">Operating Margin</div>
+          <div class="kpi-val">34.2%</div>
+          <div class="kpi-delta delta-up">↑ 3.1pp</div>
+        </div>
+        <div class="kpi-box k3">
+          <div class="kpi-label">Avg. Transaction</div>
+          <div class="kpi-val">€48.60</div>
+          <div class="kpi-delta delta-dn">↓ 2% vs Q3</div>
+        </div>
+        <div class="kpi-box k4">
+          <div class="kpi-label">Outstanding</div>
+          <div class="kpi-val">€142K</div>
+          <div class="kpi-delta delta-dn">↑ overdue</div>
+        </div>
+      </div>
+      <div class="dash-lower">
+        <div class="dash-chart-area">
+          <div style="font-size:9.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Monthly Revenue Trend</div>
+          <div class="mini-bars">
+            <div class="mini-bar bar-blue" style="height:48%"></div>
+            <div class="mini-bar bar-blue" style="height:62%"></div>
+            <div class="mini-bar bar-blue" style="height:55%"></div>
+            <div class="mini-bar bar-green" style="height:71%"></div>
+            <div class="mini-bar bar-blue" style="height:68%"></div>
+            <div class="mini-bar bar-blue" style="height:80%"></div>
+            <div class="mini-bar bar-blue" style="height:75%"></div>
+            <div class="mini-bar bar-green" style="height:88%"></div>
+            <div class="mini-bar bar-blue" style="height:83%"></div>
+            <div class="mini-bar bar-blue" style="height:92%"></div>
+            <div class="mini-bar bar-blue" style="height:86%"></div>
+            <div class="mini-bar bar-green" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="dash-table">
+          <div class="dt-head">
+            <div class="dt-h">Category</div>
+            <div class="dt-h">Amount</div>
+          </div>
+          <div class="dt-row"><div class="dt-cat">Sales</div><div class="dt-amt">€1.2M</div></div>
+          <div class="dt-row"><div class="dt-cat">Services</div><div class="dt-amt">€680K</div></div>
+          <div class="dt-row"><div class="dt-cat">Licensing</div><div class="dt-amt">€380K</div></div>
+          <div class="dt-row"><div class="dt-cat">Other</div><div class="dt-amt">€140K</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Business context</div>
+    <h2 class="section-h2 reveal rv2">The problem this solved</h2>
+    <p class="section-lead reveal rv3">Finance teams were spending 12+ hours a week manually compiling reports from 3 different systems. Decisions were delayed and data was inconsistent.</p>
+    <div class="context-grid">
+      <div class="ctx-card reveal">
+        <div class="ctx-icon">⏱️</div>
+        <div class="ctx-title">12 hrs/week lost</div>
+        <div class="ctx-body">Manual data extraction from separate systems — Excel, the ERP, and a legacy CRM — combined every Monday morning by one analyst.</div>
+      </div>
+      <div class="ctx-card reveal rv2">
+        <div class="ctx-icon">🔀</div>
+        <div class="ctx-title">Data inconsistency</div>
+        <div class="ctx-body">Numbers differed between departments because each team used a slightly different version of "the truth." No single source of record existed.</div>
+      </div>
+      <div class="ctx-card reveal rv3">
+        <div class="ctx-icon">📉</div>
+        <div class="ctx-title">Delayed decisions</div>
+        <div class="ctx-body">Weekly reports were often 2–3 days stale by the time stakeholders saw them. Fast-moving situations couldn't be reacted to in time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA SOURCES -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Data architecture</div>
+    <h2 class="section-h2 reveal rv2">Four sources, one clean pipeline</h2>
+    <p class="section-lead reveal rv3">Built a SQL-based ETL pipeline to unify four data sources into a single star-schema data model, refreshed nightly.</p>
+    <div class="sources-table reveal">
+      <div class="st-head">
+        <div class="sc">Data Source</div>
+        <div class="sc">Type</div>
+        <div class="sc">Records</div>
+        <div class="sc">Quality</div>
+      </div>
+      <div class="st-row">
+        <div class="sc sc-source">ERP System (SAP)</div>
+        <div class="sc"><span class="sc-type">SQL</span></div>
+        <div class="sc sc-rows">32,400</div>
+        <div class="sc sc-clean clean-ok">✓ Clean</div>
+      </div>
+      <div class="st-row">
+        <div class="sc sc-source">Legacy CRM Export</div>
+        <div class="sc"><span class="sc-type">CSV</span></div>
+        <div class="sc sc-rows">11,220</div>
+        <div class="sc sc-clean clean-warn">⚠ Cleaned</div>
+      </div>
+      <div class="st-row">
+        <div class="sc sc-source">Excel Workbooks</div>
+        <div class="sc"><span class="sc-type">XLSX</span></div>
+        <div class="sc sc-rows">6,800</div>
+        <div class="sc sc-clean clean-warn">⚠ Normalised</div>
+      </div>
+      <div class="st-row">
+        <div class="sc sc-source">Bank Transaction API</div>
+        <div class="sc"><span class="sc-type">REST</span></div>
+        <div class="sc sc-rows">2,100</div>
+        <div class="sc sc-clean clean-ok">✓ Clean</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY TIMELINE -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Methodology</div>
+    <h2 class="section-h2 reveal rv2">How the project unfolded</h2>
+    <div class="timeline">
+      <div class="tl-item tl-done reveal">
+        <div class="tl-left"><div class="tl-dot">📋</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 1–2</div>
+          <div class="tl-title">Discovery & requirements gathering</div>
+          <div class="tl-body">Stakeholder interviews with finance, operations, and leadership. Mapped all existing reports and their consumers. Prioritised the top 12 KPIs that drove decisions.</div>
+          <div class="tl-tools"><span class="tl-tool">Interviews</span><span class="tl-tool">Excel</span><span class="tl-tool">Miro</span></div>
+        </div>
+      </div>
+      <div class="tl-item tl-done reveal rv2">
+        <div class="tl-left"><div class="tl-dot">🛠️</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 3–4</div>
+          <div class="tl-title">Data modelling & ETL pipeline</div>
+          <div class="tl-body">Designed a star schema with 4 dimension tables and 1 fact table. Wrote SQL views to standardise data from all sources. Automated nightly refresh via scheduled job.</div>
+          <div class="tl-tools"><span class="tl-tool">SQL Server</span><span class="tl-tool">SSMS</span><span class="tl-tool">Python</span></div>
+        </div>
+      </div>
+      <div class="tl-item tl-done reveal rv3">
+        <div class="tl-left"><div class="tl-dot">📊</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 5–6</div>
+          <div class="tl-title">Dashboard design & build</div>
+          <div class="tl-body">Iterated through 3 layout prototypes with stakeholders. Built final dashboard in Power BI with cross-report drill-through, bookmarks, and mobile layout.</div>
+          <div class="tl-tools"><span class="tl-tool">Power BI</span><span class="tl-tool">Tableau</span><span class="tl-tool">DAX</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-left"><div class="tl-dot">🚀</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 7</div>
+          <div class="tl-title">Deployment & training</div>
+          <div class="tl-body">Deployed to Power BI Service with row-level security per department. Ran 3 training sessions. Created documentation wiki for ongoing maintenance.</div>
+          <div class="tl-tools"><span class="tl-tool">Power BI Service</span><span class="tl-tool">SharePoint</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Business impact</div>
+    <h2 class="section-h2 reveal rv2">Measurable results</h2>
+    <div class="roi-grid">
+      <div class="roi-card primary reveal">
+        <div class="roi-val">−40%</div>
+        <div class="roi-label">Reduction in manual reporting time per week</div>
+        <div class="roi-note">From 12hrs → 7hrs/week saved</div>
+        <div class="roi-decor">⏱</div>
+      </div>
+      <div class="roi-card success reveal rv2">
+        <div class="roi-val">1 truth</div>
+        <div class="roi-label">Single source of record across all departments</div>
+        <div class="roi-note">Zero discrepancy incidents post-launch</div>
+        <div class="roi-decor">✓</div>
+      </div>
+      <div class="roi-card warn reveal rv3">
+        <div class="roi-val">Real-time</div>
+        <div class="roi-label">Dashboard data refreshed nightly, down from weekly</div>
+        <div class="roi-note">Executive review moved from Monday to Friday</div>
+        <div class="roi-decor">🔄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="reveal">
+      <div class="cta-h">Interested in BI or analytics work?</div>
+      <div class="cta-sub">Open to finance analytics, BI development, and data internships.</div>
+    </div>
+    <div class="cta-btns reveal rv2">
+      <a href="index.html#contact" class="btn-accent">Get in touch →</a>
+      <a href="index.html#work" class="btn-outline">All projects</a>
+    </div>
+  </div>
+
+  <div class="next-project">
+    <a href="case-study-dev.html" class="next-inner">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">Portfolio Website — Frontend Development</div>
+      </div>
+      <div class="next-arrow">→</div>
+    </a>
+  </div>
+
+  <script src="js/transitions.js"></script>
+</body>
+</html>

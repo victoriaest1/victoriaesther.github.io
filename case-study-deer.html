@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CERFS — Deer Gallery · Victoria Esther</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:       #4A7A4A;
+      --accent-light: rgba(74,122,74,0.10);
+      --accent-border:rgba(74,122,74,0.22);
+      --gold:         #C9965A;
+      --gold-light:   rgba(201,150,90,0.10);
+      --gold-border:  rgba(201,150,90,0.25);
+      --bg:           #F7F2EA;
+      --bg-card:      rgba(255, 252, 246, 0.68);
+      --glass-border: rgba(255, 255, 255, 0.72);
+      --text:         #1C1C18;
+      --sub:          #555;
+      --muted:        #7A7464;
+      --faint:        #B0A898;
+      --border:       rgba(28, 28, 24, 0.07);
+      --border-solid: rgba(28, 28, 24, 0.12);
+      --font:         'Inter', system-ui, sans-serif;
+      --display:      'Playfair Display', Georgia, serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --blur:         20px;
+      --pad-x:        clamp(24px, 5vw, 72px);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND BLOBS */
+    .bg-blobs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); }
+    .blob-1 { width: clamp(280px,42vw,540px); height: clamp(280px,42vw,540px); background: rgba(74,122,74,0.13); top: -100px; right: -80px; animation: drift1 14s ease-in-out infinite; }
+    .blob-2 { width: clamp(240px,36vw,460px); height: clamp(240px,36vw,460px); background: rgba(201,150,90,0.09); bottom: 5%; left: -80px; animation: drift2 18s ease-in-out infinite; }
+    .blob-3 { width: clamp(160px,24vw,340px); height: clamp(160px,24vw,340px); background: rgba(74,122,74,0.07); top: 42%; right: 20%; animation: drift3 22s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,30px)} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-38px)} }
+    @keyframes drift3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-20px,20px)} 66%{transform:translate(20px,-16px)} }
+
+    /* ── NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,242,234,0.84);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--pad-x); height: 62px;
+    }
+    .nav-back { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-logo { font-size: 14px; font-weight: 600; color: var(--text); }
+    .nav-badge { font-size: 12px; font-weight: 500; color: var(--muted); background: var(--bg-card); border: 0.5px solid var(--glass-border); border-radius: 20px; padding: 4px 14px; }
+
+    /* ── HERO */
+    .hero { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 80px 48px 0; }
+    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .tag { font-size: 12px; font-weight: 500; border: 0.5px solid var(--border-solid); border-radius: 20px; padding: 4px 12px; color: var(--muted); background: var(--bg-card); backdrop-filter: blur(12px); }
+    .tag-green { color: var(--accent); border-color: var(--accent-border); background: var(--accent-light); }
+    .tag-gold  { color: var(--gold);   border-color: var(--gold-border);   background: var(--gold-light); }
+    .hero-h1 { font-family: var(--display); font-size: clamp(36px, 5.5vw, 64px); font-weight: 400; line-height: 1.08; letter-spacing: -1.5px; color: var(--text); margin-bottom: 24px; }
+    .hero-h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 40px; }
+    .hero-stats { display: flex; align-items: flex-start; margin-bottom: 64px; flex-wrap: wrap; gap: 0; }
+    .hero-stat { padding-right: 32px; margin-right: 32px; border-right: 1px solid var(--border); }
+    .hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .hs-val { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .hs-lbl { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* ── HERO VISUAL */
+    .hero-visual {
+      width: 100%; border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #1A3A1A 0%, #2C5933 40%, #4A7A4A 70%, #C9965A 100%);
+      height: 480px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; margin-bottom: 0;
+    }
+    .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-xl); }
+    .hero-visual-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,58,26,0.55) 0%, transparent 60%); border-radius: var(--radius-xl); }
+    .hero-visual-text { font-family: var(--display); font-style: italic; font-size: 90px; font-weight: 400; color: rgba(255,255,255,0.18); letter-spacing: -3px; user-select: none; position: relative; z-index: 1; }
+    .hero-visual-label { position: absolute; bottom: 28px; left: 36px; font-size: 11px; font-weight: 600; letter-spacing: .12em; color: rgba(255,255,255,0.7); text-transform: uppercase; z-index: 2; }
+    .hero-visual-dot { position: absolute; width: 200px; height: 200px; border-radius: 50%; border: 1px solid rgba(201,150,90,0.3); top: -60px; right: -60px; }
+    .hero-visual-dot2 { position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 1px solid rgba(74,122,74,0.35); bottom: -40px; left: 60px; }
+
+    /* ── PHOTO SECTIONS */
+    .photo-mosaic { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 280px 200px; gap: 10px; margin-top: 36px; border-radius: var(--radius-lg); overflow: hidden; }
+    .photo-mosaic .pm-main { grid-column: 1; grid-row: 1 / 3; }
+    .photo-mosaic .pm-top  { grid-column: 2; grid-row: 1; }
+    .photo-mosaic .pm-bot  { grid-column: 2; grid-row: 2; }
+    .photo-slot {
+      background: linear-gradient(135deg, rgba(74,122,74,0.12), rgba(201,150,90,0.10));
+      border: 1px dashed var(--accent-border);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 12px; gap: 8px;
+      position: relative; overflow: hidden; height: 100%; border-radius: 0;
+    }
+    .photo-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .photo-slot-label { position: absolute; bottom: 12px; left: 14px; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.75); background: rgba(26,58,26,0.45); padding: 3px 8px; border-radius: 4px; backdrop-filter: blur(6px); z-index: 2; }
+    .photo-slot-icon { font-size: 28px; opacity: 0.4; }
+    .photo-slot-hint { font-size: 11px; color: var(--faint); text-align: center; padding: 0 16px; }
+
+    .photo-strip-wrap { margin-top: 36px; overflow-x: auto; border-radius: var(--radius-lg); scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--accent-border) transparent; }
+    .photo-strip-wrap::-webkit-scrollbar { height: 4px; }
+    .photo-strip-wrap::-webkit-scrollbar-track { background: transparent; }
+    .photo-strip-wrap::-webkit-scrollbar-thumb { background: var(--accent-border); border-radius: 4px; }
+    .photo-strip { display: flex; gap: 10px; width: max-content; }
+    .photo-strip-item { width: 340px; height: 240px; flex-shrink: 0; border-radius: var(--radius); overflow: hidden; scroll-snap-align: start; position: relative; }
+    .photo-strip-item .photo-slot { border-radius: var(--radius); }
+    .strip-caption { position: absolute; bottom: 14px; left: 16px; right: 16px; z-index: 2; }
+    .strip-caption-title { font-family: var(--display); font-style: italic; font-size: 15px; color: #fff; }
+    .strip-caption-sub { font-size: 10px; color: var(--gold); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+
+    .photo-full { width: 100%; height: 360px; border-radius: var(--radius-lg); overflow: hidden; margin-top: 36px; position: relative; }
+    .photo-full .photo-slot { border-radius: var(--radius-lg); }
+    .photo-full img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-full-caption { margin-top: 10px; font-size: 12px; color: var(--faint); font-style: italic; text-align: center; }
+
+    .photo-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 36px; }
+    .photo-duo .photo-slot { height: 220px; border-radius: var(--radius); }
+
+    /* ── PAGE LAYOUT */
+    .page-wrap { max-width: 1140px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 1fr 240px; gap: 72px; position: relative; z-index: 1; }
+    .main-col { padding: 72px 0 120px; min-width: 0; }
+
+    /* ── SIDEBAR / TOC */
+    .sidebar { padding-top: 72px; position: sticky; top: 76px; align-self: start; height: fit-content; }
+    .toc-head { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-left: 10px; }
+    .toc { list-style: none; }
+    .toc li { margin-bottom: 2px; }
+    .toc a { display: block; font-size: 12px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: 6px; border-left: 2px solid transparent; transition: all .18s; }
+    .toc a:hover { color: var(--muted); border-left-color: var(--border); }
+    .toc a.on { color: var(--text); font-weight: 600; border-left-color: var(--accent); }
+    .toc-sep { height: 1px; background: var(--border); margin: 16px 10px; }
+
+    /* ── SECTIONS */
+    .sec { margin-bottom: 80px; }
+    .sec-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .sec-h2 { font-family: var(--display); font-size: clamp(24px, 3vw, 34px); font-weight: 400; line-height: 1.2; letter-spacing: -.5px; color: var(--text); margin-bottom: 18px; }
+    p { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
+    p strong { color: var(--text); font-weight: 600; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── CARDS */
+    .cards-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 28px; }
+    .cards-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 28px; }
+    .info-card { background: var(--bg-card); border: 0.5px solid var(--border-solid); border-radius: var(--radius); padding: 22px 20px; display: flex; flex-direction: column; }
+    .ic-icon  { font-size: 24px; margin-bottom: 12px; }
+    .ic-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .ic-body  { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 14px; }
+    .ic-tag   { display: inline-block; font-size: 11px; font-weight: 600; border-radius: 20px; padding: 3px 10px; color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); align-self: flex-start; }
+    .ic-tag.gold { color: var(--gold); background: var(--gold-light); border-color: var(--gold-border); }
+    .ic-tag.gray { color: var(--muted); background: var(--bg-card); border-color: var(--border); }
+
+    /* ── QUOTE */
+    .quote-block { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 36px 40px; margin: 32px 0; }
+    .quote-mark { font-size: 52px; color: var(--accent); font-family: var(--display); line-height: .9; margin-bottom: 10px; display: block; }
+    .quote-text { font-family: var(--display); font-style: italic; font-size: clamp(17px, 2vw, 21px); color: var(--text); line-height: 1.6; margin-bottom: 16px; }
+    .quote-by { font-size: 13px; color: var(--muted); }
+
+    /* ── GOALS */
+    .goals { list-style: none; margin-top: 16px; }
+    .goals li { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 0.5px solid var(--border); font-size: 14px; color: var(--muted); }
+    .goals li:last-child { border-bottom: none; }
+    .g-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+
+    /* ── PALETTE SWATCHES */
+    .palette { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+    .swatch { border-radius: var(--radius); padding: 20px 16px 14px; flex: 1; min-width: 100px; }
+    .sw-name { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+    .sw-hex  { font-size: 11px; opacity: 0.7; }
+
+    /* ── TYPE SHOWCASE */
+    .type-showcase { background: var(--bg-card); border: 0.5px solid var(--border-solid); border-radius: var(--radius-lg); padding: 36px; margin-top: 24px; }
+    .type-row { padding: 24px 0; border-bottom: 0.5px solid var(--border); }
+    .type-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .type-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .type-sample-display { font-family: var(--display); font-size: 42px; font-style: italic; font-weight: 400; color: var(--text); line-height: 1.1; letter-spacing: -1px; }
+    .type-sample-body { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.75; }
+    .type-sample-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+    .type-meta { font-size: 11px; color: var(--faint); margin-top: 6px; }
+
+    /* ── PROCESS STEPS */
+    .process { margin-top: 24px; }
+    .process-step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 0.5px solid var(--border); }
+    .process-step:last-child { border-bottom: none; }
+    .ps-num { font-size: 11px; font-weight: 700; color: var(--accent); width: 24px; flex-shrink: 0; padding-top: 2px; }
+    .ps-content {}
+    .ps-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .ps-body  { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── DESIGN DECISION CARD */
+    .decision-card { background: var(--bg-card); border: 0.5px solid var(--border-solid); border-radius: var(--radius); padding: 24px; margin-top: 16px; }
+    .dc-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .dc-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .dc-body  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── FIGMA BUTTON */
+    .figma-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #fff;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      padding: 14px 28px; border-radius: var(--radius);
+      transition: opacity .2s, transform .2s;
+      margin-top: 28px;
+    }
+    .figma-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── LEARNINGS */
+    .learning-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 24px; }
+    .learning-card { background: var(--bg-card); border: 0.5px solid var(--border-solid); border-radius: var(--radius); padding: 22px 20px; }
+    .lc-emoji { font-size: 22px; margin-bottom: 10px; }
+    .lc-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .lc-body  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── NEXT PROJECT */
+    .next-project { margin-top: 80px; padding-top: 40px; border-top: 0.5px solid var(--border); }
+    .np-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .np-link { display: flex; align-items: center; justify-content: space-between; padding: 24px 28px; background: var(--bg-card); border: 0.5px solid var(--border-solid); border-radius: var(--radius-lg); text-decoration: none; transition: border-color .2s, box-shadow .2s; }
+    .np-link:hover { border-color: var(--accent-border); box-shadow: 0 4px 20px rgba(74,122,74,0.08); }
+    .np-title { font-family: var(--display); font-size: 20px; color: var(--text); font-weight: 400; }
+    .np-arrow { font-size: 22px; color: var(--accent); }
+
+    @media (max-width: 760px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .cards-3, .cards-2, .learning-grid { grid-template-columns: 1fr; }
+      .hero { padding: 48px 24px 0; }
+      .page-wrap { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-logo">Victoria Esther<span style="color:var(--accent)">.</span></span>
+  <span class="nav-badge">Web Design · 2026</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tags">
+    <span class="tag tag-green">Web Design</span>
+    <span class="tag tag-green">Swiss Design</span>
+    <span class="tag tag-gold">Editorial</span>
+    <span class="tag">Figma</span>
+    <span class="tag">Photography</span>
+    <span class="tag">UX/UI</span>
+  </div>
+  <h1 class="hero-h1"><em>CERFS</em> —<br>A Deer Photography<br>Gallery.</h1>
+  <p class="hero-desc">
+    A single-scroll editorial web design for a nature photography gallery — combining Swiss typographic principles, warm gold accents, and an immersive horizontal photo strip to create a meditative browsing experience.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hs-val">12</div>
+      <div class="hs-lbl">Sections designed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">1</div>
+      <div class="hs-lbl">Long-scroll frame</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">2</div>
+      <div class="hs-lbl">Font families</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">3</div>
+      <div class="hs-lbl">Color palettes</div>
+    </div>
+  </div>
+
+  <!-- Hero visual -->
+  <div class="hero-visual">
+    <!-- ↓ Replace with your hero photo. Remove the fallback text once image is added. -->
+    <img src="images/deer/thumbnail.jpg" alt="CERFS hero photograph" onerror="this.style.display='none'" />
+    <div class="hero-visual-overlay"></div>
+    <div class="hero-visual-dot"></div>
+    <div class="hero-visual-dot2"></div>
+    <span class="hero-visual-text" id="hero-fallback-text">CERFS</span>
+    <span class="hero-visual-label">Deer Photography Gallery · 2026</span>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="page-wrap">
+  <main class="main-col">
+
+    <!-- OVERVIEW -->
+    <section class="sec" id="overview">
+      <p class="sec-label">Overview</p>
+      <h2 class="sec-h2">A gallery that slows you down</h2>
+      <p>
+        CERFS (French for "deer") is a <strong>single-page editorial web design</strong> concept built entirely in Figma. The brief was self-imposed: design a nature photography showcase that feels as calm and intentional as the subject matter — deer in their natural habitat across the forests of Switzerland.
+      </p>
+      <p>
+        Rather than a traditional grid gallery, the design takes cues from <strong>editorial print magazines and Swiss International Style</strong> — strict grids, purposeful white space, expressive typography, and a colour palette rooted in the natural world. The result is a page you scroll slowly, not scan quickly.
+      </p>
+      <div class="cards-3">
+        <div class="info-card">
+          <div class="ic-icon">🎨</div>
+          <div class="ic-title">Design Tool</div>
+          <div class="ic-body">Designed end-to-end in Figma — one single 1440 × 6612px frame representing the full scrollable page.</div>
+          <span class="ic-tag">Figma</span>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">📐</div>
+          <div class="ic-title">Design Style</div>
+          <div class="ic-body">Swiss International Typographic Style — grid-based, left-aligned, minimal ornament, strong typographic hierarchy.</div>
+          <span class="ic-tag gray">Editorial</span>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">🦌</div>
+          <div class="ic-title">Subject</div>
+          <div class="ic-body">A personal photography project showcasing deer across four seasons in the Swiss forests around Fribourg.</div>
+          <span class="ic-tag gold">Nature</span>
+        </div>
+      </div>
+
+      <!-- ↓ PHOTO MOSAIC — drop images/deer/photo-1.jpg, photo-2.jpg, photo-3.jpg -->
+      <div class="photo-mosaic">
+        <div class="pm-main photo-slot">
+          <img src="images/deer/photo-1.jpg" alt="Deer photograph 1" onerror="this.style.display='none'" />
+          <span class="photo-slot-icon">🦌</span>
+          <span class="photo-slot-hint">photo-1.jpg</span>
+          <span class="photo-slot-label">I — The Forest</span>
+        </div>
+        <div class="pm-top photo-slot">
+          <img src="images/deer/photo-2.jpg" alt="Deer photograph 2" onerror="this.style.display='none'" />
+          <span class="photo-slot-icon">🌿</span>
+          <span class="photo-slot-hint">photo-2.jpg</span>
+          <span class="photo-slot-label">II — At Dawn</span>
+        </div>
+        <div class="pm-bot photo-slot">
+          <img src="images/deer/photo-3.jpg" alt="Deer photograph 3" onerror="this.style.display='none'" />
+          <span class="photo-slot-icon">🍂</span>
+          <span class="photo-slot-hint">photo-3.jpg</span>
+          <span class="photo-slot-label">III — Autumn</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="sec" id="problem">
+      <p class="sec-label">The Challenge</p>
+      <h2 class="sec-h2">How do you design for stillness?</h2>
+      <p>
+        Most photography galleries are designed for efficiency — quick browsing, large grids, filters. But wildlife photography, especially of deer, carries a different quality. <strong>The subject demands patience.</strong> The viewer should feel invited to slow down, not rush through.
+      </p>
+      <div class="quote-block">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">In stillness, the deer reveals what haste conceals.</p>
+        <p class="quote-by">— Design principle guiding every layout decision</p>
+      </div>
+      <p>
+        The design challenge was to translate that quality of stillness into a visual language — through layout rhythm, typographic pacing, and the way photos are revealed as you scroll.
+      </p>
+      <ul class="goals">
+        <li><span class="g-dot"></span>Create a single long-scroll experience that rewards slow browsing</li>
+        <li><span class="g-dot"></span>Use Swiss grid principles to create structure without sterility</li>
+        <li><span class="g-dot"></span>Introduce warmth through a gold accent alongside the naturalistic greens</li>
+        <li><span class="g-dot"></span>Design a horizontal scroll section so photos feel discovered, not presented</li>
+        <li><span class="g-dot"></span>Make typography as expressive as the photography itself</li>
+      </ul>
+    </section>
+
+    <!-- PHOTO STRIP -->
+    <section class="sec" id="gallery">
+      <p class="sec-label">The Collection</p>
+      <h2 class="sec-h2">Scroll through the series</h2>
+      <p>A curated selection from the full gallery — scroll right to move through the seasons.</p>
+      <!-- ↓ HORIZONTAL SCROLL STRIP — drop images/deer/strip-1.jpg through strip-6.jpg -->
+      <div class="photo-strip-wrap">
+        <div class="photo-strip">
+          <div class="photo-strip-item">
+            <div class="photo-slot">
+              <img src="images/deer/strip-1.jpg" alt="Gallery 1" onerror="this.style.display='none'" />
+              <span class="photo-slot-icon">🦌</span>
+              <span class="photo-slot-hint">strip-1.jpg</span>
+            </div>
+            <div class="strip-caption">
+              <div class="strip-caption-title">Into the light</div>
+              <div class="strip-caption-sub">Early Spring · Fribourg</div>
+            </div>
+          </div>
+          <div class="photo-strip-item">
+            <div class="photo-slot">
+              <img src="images/deer/strip-2.jpg" alt="Gallery 2" onerror="this.style.display='none'" />
+              <span class="photo-slot-icon">🌿</span>
+              <span class="photo-slot-hint">strip-2.jpg</span>
+            </div>
+            <div class="strip-caption">
+              <div class="strip-caption-title">Green canopy</div>
+              <div class="strip-caption-sub">Summer · Swiss Alps</div>
+            </div>
+          </div>
+          <div class="photo-strip-item">
+            <div class="photo-slot">
+              <img src="images/deer/strip-3.jpg" alt="Gallery 3" onerror="this.style.display='none'" />
+              <span class="photo-slot-icon">🍂</span>
+              <span class="photo-slot-hint">strip-3.jpg</span>
+            </div>
+            <div class="strip-caption">
+              <div class="strip-caption-title">The golden hour</div>
+              <div class="strip-caption-sub">Autumn · October</div>
+            </div>
+          </div>
+          <div class="photo-strip-item">
+            <div class="photo-slot">
+              <img src="images/deer/strip-4.jpg" alt="Gallery 4" onerror="this.style.display='none'" />
+              <span class="photo-slot-icon">❄️</span>
+              <span class="photo-slot-hint">strip-4.jpg</span>
+            </div>
+            <div class="strip-caption">
+              <div class="strip-caption-title">First snow</div>
+              <div class="strip-caption-sub">Winter · December</div>
+            </div>
+          </div>
+          <div class="photo-strip-item">
+            <div class="photo-slot">
+              <img src="images/deer/strip-5.jpg" alt="Gallery 5" onerror="this.style.display='none'" />
+              <span class="photo-slot-icon">🌙</span>
+              <span class="photo-slot-hint">strip-5.jpg</span>
+            </div>
+            <div class="strip-caption">
+              <div class="strip-caption-title">Dusk silhouette</div>
+              <div class="strip-caption-sub">Blue hour · Jura</div>
+            </div>
+          </div>
+          <div class="photo-strip-item">
+            <div class="photo-slot">
+              <img src="images/deer/strip-6.jpg" alt="Gallery 6" onerror="this.style.display='none'" />
+              <span class="photo-slot-icon">✦</span>
+              <span class="photo-slot-hint">strip-6.jpg</span>
+            </div>
+            <div class="strip-caption">
+              <div class="strip-caption-title">Still waters</div>
+              <div class="strip-caption-sub">Reflection · Lake Neuchâtel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN PROCESS -->
+    <section class="sec" id="process">
+      <p class="sec-label">Design Process</p>
+      <h2 class="sec-h2">From concept to one long frame</h2>
+      <p>
+        The entire design was built inside a single Figma frame — a deliberate choice. Rather than designing individual sections in isolation, working in one connected canvas forced every section to feel like part of a continuous scroll, not a collection of separate screens.
+      </p>
+      <div class="process">
+        <div class="process-step">
+          <span class="ps-num">01</span>
+          <div class="ps-content">
+            <div class="ps-title">Mood & Reference</div>
+            <div class="ps-body">Gathered references from editorial magazines (Kinfolk, The Plant, Cereal) and Swiss design archives (Müller-Brockmann, Ruder). Defined three mood pillars: <em>romantic, editorial, organic</em>.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="ps-num">02</span>
+          <div class="ps-content">
+            <div class="ps-title">Colour Palette</div>
+            <div class="ps-body">Natural mid-green (#4A7A4A) as primary, warm gold (#C9965A) as accent, cream (#F5EDD8) as background. Three distinct palettes: light cream sections, dark green sections, and light sage sections — creating visual rhythm as you scroll.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="ps-num">03</span>
+          <div class="ps-content">
+            <div class="ps-title">Typography Pairing</div>
+            <div class="ps-body">Playfair Display (display headings, italics, poetic asides) paired with Inter (labels, captions, body). The contrast between serif romance and sans-serif precision mirrors the tension between wild nature and designed space.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="ps-num">04</span>
+          <div class="ps-content">
+            <div class="ps-title">Layout Architecture</div>
+            <div class="ps-body">12 sections in a single 1440 × 6612px frame: nav → hero → editorial intro → 3 gallery grids → horizontal scroll strip → quote → full-bleed → about → closing → footer. Each section alternates between light and dark backgrounds to create breathing room.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="ps-num">05</span>
+          <div class="ps-content">
+            <div class="ps-title">Horizontal Scroll Strip</div>
+            <div class="ps-body">A fixed-height viewport (700px) containing an inner frame 6600px wide — 6 full-width photos side by side. In Figma prototype mode, this scrolls horizontally. Each photo has an italic Playfair Display caption and gold sub-label, making discovery feel curated.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="ps-num">06</span>
+          <div class="ps-content">
+            <div class="ps-title">Whimsical Details</div>
+            <div class="ps-body">Decorative rings and circles floating behind sections, gold corner brackets on photo frames, ✦ stars as ornamental dividers, Latin name <em>Cervus elaphus</em>, Swiss coordinates 46°49'N · 7°09'E, Roman numeral section labels, and poetic asides scattered throughout.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL-BLEED PHOTO -->
+    <!-- ↓ Drop images/deer/featured.jpg for a wide cinematic shot -->
+    <div class="photo-full">
+      <div class="photo-slot" style="border-radius:var(--radius-lg);">
+        <img src="images/deer/featured.jpg" alt="Featured deer photograph" onerror="this.style.display='none'" />
+        <span class="photo-slot-icon">🦌</span>
+        <span class="photo-slot-hint">featured.jpg — your best wide shot</span>
+      </div>
+    </div>
+    <p class="photo-full-caption">Cervus elaphus · 46°49'N 7°09'E · Swiss forests</p>
+
+    <!-- COLOUR & TYPE -->
+    <section class="sec" id="design-system">
+      <p class="sec-label">Colour & Typography</p>
+      <h2 class="sec-h2">A palette rooted in the forest</h2>
+      <p>
+        Every colour decision references the natural environment. The green is not a brand colour — it is the colour of a beech leaf in May. The gold is the colour of afternoon light filtering through the canopy.
+      </p>
+
+      <div class="palette">
+        <div class="swatch" style="background:#4A7A4A;">
+          <div class="sw-name" style="color:#fff">Forest Green</div>
+          <div class="sw-hex" style="color:#fff">#4A7A4A</div>
+        </div>
+        <div class="swatch" style="background:#1A3A1A;">
+          <div class="sw-name" style="color:#fff">Deep Forest</div>
+          <div class="sw-hex" style="color:#fff">#1A3A1A</div>
+        </div>
+        <div class="swatch" style="background:#C9965A;">
+          <div class="sw-name" style="color:#fff">Warm Gold</div>
+          <div class="sw-hex" style="color:#fff">#C9965A</div>
+        </div>
+        <div class="swatch" style="background:#E0F0E0; border: 0.5px solid rgba(0,0,0,0.08);">
+          <div class="sw-name" style="color:#1A3A1A">Sage</div>
+          <div class="sw-hex" style="color:#4A7A4A">#E0F0E0</div>
+        </div>
+        <div class="swatch" style="background:#F7F2EA; border: 0.5px solid rgba(0,0,0,0.08);">
+          <div class="sw-name" style="color:#1A3A1A">Cream</div>
+          <div class="sw-hex" style="color:#7A7464">#F7F2EA</div>
+        </div>
+      </div>
+
+      <!-- ↓ Two photos side by side — drop images/deer/detail-1.jpg and detail-2.jpg -->
+      <div class="photo-duo">
+        <div class="photo-slot">
+          <img src="images/deer/detail-1.jpg" alt="Detail 1" onerror="this.style.display='none'" />
+          <span class="photo-slot-icon">🌿</span>
+          <span class="photo-slot-hint">detail-1.jpg</span>
+          <span class="photo-slot-label">Forest Green</span>
+        </div>
+        <div class="photo-slot">
+          <img src="images/deer/detail-2.jpg" alt="Detail 2" onerror="this.style.display='none'" />
+          <span class="photo-slot-icon">🍂</span>
+          <span class="photo-slot-hint">detail-2.jpg</span>
+          <span class="photo-slot-label">Warm Gold</span>
+        </div>
+      </div>
+
+      <div class="type-showcase">
+        <div class="type-row">
+          <div class="type-label">Display — Playfair Display Bold Italic</div>
+          <div class="type-sample-display">Silence & Stillness.</div>
+          <div class="type-meta">Used for: hero title, section headings, pull quotes</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Body — Inter Light</div>
+          <div class="type-sample-body">The deer — silent, watchful, graceful — inhabits the margins between forest and field. This collection seeks to capture their quiet presence across seasons.</div>
+          <div class="type-meta">Used for: body copy, captions, descriptions</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Label — Inter Bold, tracked</div>
+          <div class="type-sample-label">I — THE COLLECTION</div>
+          <div class="type-meta">Used for: section numbers (Roman numerals), navigation labels, tags</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY DECISIONS -->
+    <section class="sec" id="decisions">
+      <p class="sec-label">Key Design Decisions</p>
+      <h2 class="sec-h2">Every choice, intentional</h2>
+
+      <div class="decision-card">
+        <div class="dc-label">✦ Decision 01</div>
+        <div class="dc-title">One frame, not many screens</div>
+        <div class="dc-body">Instead of designing section by section, the entire page lives in a single 1440 × 6612px Figma frame. This forces continuity — colours have to transition, sections have to breathe into each other, and the page reads as one composition rather than a collection of separate components.</div>
+      </div>
+      <div class="decision-card">
+        <div class="dc-label">✦ Decision 02</div>
+        <div class="dc-title">Horizontal scroll for the gallery strip</div>
+        <div class="dc-body">A horizontal scroll section within a vertical-scroll page creates a moment of surprise — the user's gesture changes. The photos are 1100px wide so you only ever see a glimpse of the next one, encouraging exploration without showing everything at once.</div>
+      </div>
+      <div class="decision-card">
+        <div class="dc-label">✦ Decision 03</div>
+        <div class="dc-title">Gold as warmth, not luxury</div>
+        <div class="dc-body">Gold (#C9965A) was chosen specifically because it references afternoon light and warm soil — not prestige or status. It pairs with the naturalistic greens to feel earthy rather than opulent, and appears only as accents: rules, dots, corner marks, and sub-labels.</div>
+      </div>
+      <div class="decision-card">
+        <div class="dc-label">✦ Decision 04</div>
+        <div class="dc-title">Roman numerals as section markers</div>
+        <div class="dc-body">Using I, II, III... instead of 01, 02, 03 adds an archival, almost literary quality — as if each section is a chapter in a book rather than a screen in a UI. It reinforces the editorial nature of the project without being visually heavy.</div>
+      </div>
+    </section>
+
+    <!-- PROTOTYPE -->
+    <section class="sec" id="prototype">
+      <p class="sec-label">Figma Design</p>
+      <h2 class="sec-h2">Explore the full design</h2>
+      <p>
+        The complete design is available in Figma — one long frame with all 12 sections, the horizontal scroll strip, all decorative details, and placeholder frames ready for real deer photographs.
+      </p>
+      <a href="https://www.figma.com/design/LkYqrmydXvTRdrNUU2WpAw/Deer-Gallery-%E2%80%94-Web-Design" target="_blank" rel="noopener" class="figma-btn">
+        View in Figma →
+      </a>
+    </section>
+
+    <!-- LEARNINGS -->
+    <section class="sec" id="learnings">
+      <p class="sec-label">Reflections</p>
+      <h2 class="sec-h2">What this project taught me</h2>
+      <div class="learning-grid">
+        <div class="learning-card">
+          <div class="lc-emoji">🏗️</div>
+          <div class="lc-title">Design in context</div>
+          <div class="lc-body">Working in a single long frame forces you to see every section in relation to the ones before and after. You can't make Section 6 beautiful in isolation — it has to work in the flow.</div>
+        </div>
+        <div class="learning-card">
+          <div class="lc-emoji">✍️</div>
+          <div class="lc-title">Typography as composition</div>
+          <div class="lc-body">Using type at radically different scales — 260px display vs 10px labels — creates the same kind of visual rhythm that photographs do. Type isn't just readable, it's compositional.</div>
+        </div>
+        <div class="learning-card">
+          <div class="lc-emoji">🌿</div>
+          <div class="lc-title">Constraints breed character</div>
+          <div class="lc-body">Limiting the palette to two families and three colours forced every decision to be purposeful. The constraints of Swiss design aren't restrictions — they're a creative framework.</div>
+        </div>
+        <div class="learning-card">
+          <div class="lc-emoji">✦</div>
+          <div class="lc-title">Details make the difference</div>
+          <div class="lc-body">The Latin name in the nav, the coordinates in the hero, the Roman numerals — no user will notice these consciously. But they add up to a feeling of care and intentionality that elevates the whole.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT PROJECT -->
+    <div class="next-project">
+      <p class="np-label">Next Project</p>
+      <a href="case-study-apex.html" class="np-link">
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">UI/UX Design</div>
+          <div class="np-title">APEX — F1 Experience App</div>
+        </div>
+        <span class="np-arrow">→</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR TOC -->
+  <aside class="sidebar">
+    <p class="toc-head">On this page</p>
+    <ul class="toc">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#problem">The Challenge</a></li>
+      <li><a href="#gallery">The Collection</a></li>
+      <li><a href="#process">Design Process</a></li>
+      <li><a href="#design-system">Colour & Typography</a></li>
+      <li><a href="#decisions">Key Decisions</a></li>
+      <li><a href="#prototype">Figma Design</a></li>
+      <li><a href="#learnings">Reflections</a></li>
+    </ul>
+    <div class="toc-sep"></div>
+    <ul class="toc">
+      <li><a href="index.html">← Portfolio</a></li>
+    </ul>
+  </aside>
+</div>
+
+<script>
+  // Active TOC link
+  const sections = document.querySelectorAll('.sec[id]');
+  const tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        tocLinks.forEach(a => a.classList.remove('on'));
+        const active = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('on');
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APEX F1 App — Victoria Esther</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:          #E8000D;
+      --bg:           #F7F2EA;
+      --bg-card:      rgba(255, 252, 246, 0.68);
+      --glass-border: rgba(255, 255, 255, 0.72);
+      --text:         #1C1C18;
+      --sub:          #555;
+      --muted:        #7A7464;
+      --faint:        #B0A898;
+      --border:       rgba(28, 28, 24, 0.07);
+      --border-solid: rgba(28, 28, 24, 0.12);
+      --font:         'Inter', system-ui, sans-serif;
+      --display:      'Playfair Display', Georgia, serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --blur:         20px;
+      --pad-x:        clamp(24px, 5vw, 72px);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND BLOBS (matches portfolio system, red palette) */
+    .bg-blobs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); }
+    .blob-1 { width: clamp(280px,42vw,540px); height: clamp(280px,42vw,540px); background: rgba(232,0,13,0.13); top: -100px; right: -80px; animation: drift1 14s ease-in-out infinite; }
+    .blob-2 { width: clamp(240px,36vw,460px); height: clamp(240px,36vw,460px); background: rgba(180,0,10,0.10); bottom: 5%; left: -80px; animation: drift2 18s ease-in-out infinite; }
+    .blob-3 { width: clamp(160px,24vw,340px); height: clamp(160px,24vw,340px); background: rgba(232,0,13,0.07); top: 42%; right: 20%; animation: drift3 22s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,30px)} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-38px)} }
+    @keyframes drift3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-20px,20px)} 66%{transform:translate(20px,-16px)} }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,242,234,0.84);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--pad-x); height: 62px;
+    }
+    .nav-back {
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-logo { font-size: 14px; font-weight: 600; color: var(--text); }
+    .nav-badge {
+      font-size: 12px; font-weight: 500; color: var(--muted);
+      background: var(--bg-card); border: 0.5px solid var(--glass-border);
+      border-radius: 20px; padding: 4px 14px;
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      position: relative; z-index: 1;
+      max-width: 1000px; margin: 0 auto;
+      padding: 80px 48px 0;
+    }
+
+    .hero-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .tag {
+      font-size: 12px; font-weight: 500;
+      border: 0.5px solid var(--border-solid);
+      border-radius: 20px; padding: 4px 12px;
+      color: var(--muted); background: var(--bg-card);
+      backdrop-filter: blur(12px);
+    }
+    .tag-red {
+      color: var(--red);
+      border-color: rgba(232,0,13,0.22);
+      background: rgba(232,0,13,0.06);
+    }
+
+    .hero-h1 {
+      font-family: var(--display);
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .hero-desc {
+      font-size: 16px; color: var(--muted);
+      max-width: 520px; line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    /* STATS ROW */
+    .hero-stats {
+      display: flex; align-items: flex-start;
+      margin-bottom: 64px; flex-wrap: wrap; gap: 0;
+    }
+    .hero-stat {
+      padding-right: 32px; margin-right: 32px;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .hs-val {
+      font-size: 26px; font-weight: 700;
+      color: var(--text); line-height: 1; margin-bottom: 4px;
+    }
+    .hs-lbl { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* ── PHONE MOCKUPS ───────────────────────────────────── */
+    .hero-phones {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 20px;
+      padding-bottom: 0;
+    }
+
+    .phone {
+      border-radius: 32px;
+      background: #111;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.20), 0 6px 20px rgba(0,0,0,0.10);
+      flex-shrink: 0;
+      display: flex; flex-direction: column;
+    }
+    .phone > img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      z-index: 1;
+    }
+    /* Dynamic island */
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 11px; left: 50%;
+      transform: translateX(-50%);
+      width: 36px; height: 11px;
+      background: #000;
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .phone-sm { width: 118px; height: 236px; border-radius: 26px; }
+    .phone-md { width: 148px; height: 296px; border-radius: 30px; }
+    .phone-lg { width: 178px; height: 355px; border-radius: 34px; }
+
+    .phone-header {
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .phone-sm .phone-header { height: 65px; }
+    .phone-md .phone-header { height: 80px; }
+    .phone-lg .phone-header { height: 96px; }
+
+    .phone-body {
+      flex: 1; background: #111;
+      padding: 12px 13px 8px;
+      display: flex; flex-direction: column; gap: 7px;
+    }
+    .pb { height: 5px; background: #2a2a2a; border-radius: 3px; flex-shrink: 0; }
+    .pb.r { background: rgba(232,0,13,0.80); }
+    .pb.w100 { width: 100%; } .pb.w85 { width: 85%; } .pb.w75 { width: 75%; }
+    .pb.w65  { width: 65%;  } .pb.w55 { width: 55%; } .pb.w45 { width: 45%; }
+    .pb-chart { display: flex; align-items: flex-end; gap: 4px; height: 38px; flex-shrink: 0; }
+    .pb-col   { flex: 1; background: #2a2a2a; border-radius: 3px; }
+    .pb-col.r { background: rgba(232,0,13,0.80); }
+
+    .phone-footer {
+      background: #0e0e0e;
+      height: 38px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .phone-dot { width: 6px; height: 6px; border-radius: 50%; background: #333; }
+    .phone-dot.on { background: rgba(255,255,255,0.8); }
+
+    /* ── PAGE LAYOUT ─────────────────────────────────────── */
+    .page-wrap {
+      max-width: 1140px; margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 72px;
+      position: relative; z-index: 1;
+    }
+    .main-col { padding: 72px 0 120px; min-width: 0; }
+
+    /* ── SIDEBAR ─────────────────────────────────────────── */
+    .sidebar {
+      padding-top: 72px;
+      position: sticky; top: 76px;
+      align-self: start;
+      height: fit-content;
+    }
+    .toc-head {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+      padding-left: 10px;
+    }
+    .toc { list-style: none; }
+    .toc li { margin-bottom: 2px; }
+    .toc a {
+      display: block; font-size: 12px; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      padding: 4px 10px; border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: all .18s;
+      letter-spacing: .01em;
+    }
+    .toc a:hover { color: var(--muted); border-left-color: var(--border); }
+    .toc a.on {
+      color: var(--text); font-weight: 600;
+      border-left-color: var(--red);
+    }
+    .toc-sep { height: 1px; background: var(--border); margin: 16px 10px; }
+
+    /* ── SECTIONS ────────────────────────────────────────── */
+    .sec { margin-bottom: 80px; }
+    .sec-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 12px;
+    }
+    .sec-h2 {
+      font-family: var(--display);
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 400; line-height: 1.2; letter-spacing: -.5px;
+      color: var(--text); margin-bottom: 18px;
+    }
+    p { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
+    p strong { color: var(--text); font-weight: 600; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── 3-CARD GRID ─────────────────────────────────────── */
+    .cards-3 {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 14px; margin-top: 28px;
+    }
+    .info-card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border-solid);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      display: flex; flex-direction: column;
+    }
+    .ic-icon  { font-size: 24px; margin-bottom: 12px; }
+    .ic-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .ic-body  { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 14px; }
+    .ic-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      border-radius: 20px; padding: 3px 10px;
+      color: var(--red);
+      background: rgba(232,0,13,0.07);
+      border: 1px solid rgba(232,0,13,0.15);
+      align-self: flex-start;
+    }
+    .ic-tag.gray {
+      color: var(--muted);
+      background: var(--bg-card);
+      border-color: var(--border);
+    }
+
+    /* ── PAIN POINT CARDS ────────────────────────────────── */
+    .pain-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 14px; margin-top: 28px;
+    }
+    .pain-card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border-solid);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      display: flex; flex-direction: column;
+    }
+    .pc-icon  { font-size: 24px; margin-bottom: 12px; }
+    .pc-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .pc-body  { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 14px; }
+    .pc-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      border-radius: 20px; padding: 3px 10px;
+      color: var(--red);
+      background: rgba(232,0,13,0.07);
+      border: 1px solid rgba(232,0,13,0.15);
+      align-self: flex-start;
+    }
+
+    /* ── QUOTE BLOCK ─────────────────────────────────────── */
+    .quote-block {
+      background: rgba(232,0,13,0.04);
+      border: 1px solid rgba(232,0,13,0.12);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin: 32px 0;
+    }
+    .quote-mark {
+      font-size: 52px; color: var(--red);
+      font-family: var(--display); line-height: .9;
+      margin-bottom: 10px; display: block;
+    }
+    .quote-text {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: clamp(17px, 2vw, 21px);
+      color: var(--text); line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .quote-by { font-size: 13px; color: var(--muted); }
+
+    /* ── GOALS LIST ──────────────────────────────────────── */
+    .goals { list-style: none; margin-top: 16px; }
+    .goals li {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 0.5px solid var(--border);
+      font-size: 14px; color: var(--muted);
+    }
+    .goals li:last-child { border-bottom: none; }
+    .g-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: rgba(232,0,13,0.08); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 15px;
+    }
+    .g-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+
+    /* ── PROCESS STEPS ───────────────────────────────────── */
+    .process-steps { margin-top: 24px; }
+    .process-step {
+      display: flex; gap: 18px;
+      padding: 18px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .process-step:last-child { border-bottom: none; }
+    .ps-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--red); color: white;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ps-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .ps-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── STATS ROW (sections) ────────────────────────────── */
+    .sec-stats {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border-solid); border-radius: var(--radius);
+      overflow: hidden; margin: 28px 0;
+    }
+    .sec-stat-cell { background: var(--bg); padding: 22px 16px; text-align: center; }
+    .sec-stat-val  { font-size: 30px; font-weight: 700; color: var(--red); letter-spacing: -1px; line-height: 1; }
+    .sec-stat-lbl  { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+    /* ── SWATCHES & TYPE ─────────────────────────────────── */
+    .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+    .swatch   { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
+    .type-row { display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; margin: 12px 0; }
+    .type-sample { color: white; }
+    .type-label  { font-size: 11px; color: #888; }
+
+    /* ── IMAGE BLOCKS ────────────────────────────────────── */
+    .img-blk {
+      background: #0a0a0a; border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 10px;
+    }
+    .img-blk.tall   { aspect-ratio: 16/8; }
+    .img-blk.mid    { aspect-ratio: 16/9; }
+    .img-blk.short  { aspect-ratio: 16/6; }
+    .img-blk-inner  {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; padding: 28px 36px;
+    }
+    .img-cap { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 24px; }
+    .img-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+    .img-2col .img-blk { margin-bottom: 0; }
+
+    /* phone primitives for dark image blocks */
+    .ph { background: #1c1c1c; border-radius: 22px; overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column; position: relative; }
+    .ph > img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1; }
+    .ph::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 32%; height: 8px; background: #0a0a0a; border-radius: 0 0 5px 5px; z-index: 2; }
+    .ph-inner { padding: 14px 9px 9px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+    .p-nav  { height: 22px; background: var(--red); border-radius: 4px; flex-shrink: 0; }
+    .p-bar  { height: 4px; background: #2d2d2d; border-radius: 2px; }
+    .p-bar.a { background: var(--red); opacity: .7; }
+    .p-bar.w90{width:90%}.p-bar.w75{width:75%}.p-bar.w60{width:60%}.p-bar.w50{width:50%}.p-bar.w40{width:40%}.p-bar.w85{width:85%}
+    .p-chart { display: flex; align-items: flex-end; gap: 3px; height: 34px; margin-top: 3px; }
+    .p-col { flex: 1; background: #2d2d2d; border-radius: 2px; }
+    .p-col.r { background: var(--red); }
+    .p-bnav { height: 20px; background: #141414; border-radius: 4px; margin-top: auto; flex-shrink: 0; }
+    .ph-xs{width:88px;height:158px}.ph-sm{width:108px;height:194px}.ph-md{width:128px;height:230px}.ph-lg{width:148px;height:266px}.ph-xl{width:168px;height:302px}
+
+    /* ── TAKEAWAYS ───────────────────────────────────────── */
+    .tk-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .tk-card { border: 0.5px solid var(--border-solid); border-radius: var(--radius); padding: 18px; background: var(--bg-card); }
+    .tk-icon  { font-size: 20px; margin-bottom: 8px; }
+    .tk-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .tk-body  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── CTA ─────────────────────────────────────────────── */
+    .cta-blk {
+      background: var(--black); border-radius: 16px;
+      padding: 44px 48px; color: white;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; margin-top: 72px;
+    }
+    .cta-h   { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .cta-sub { font-size: 14px; color: #888; }
+    .cta-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .btn-red { background: var(--red); color: white; padding: 11px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity .2s; }
+    .btn-red:hover { opacity: .85; }
+    .btn-ghost { border: 1px solid #333; color: white; padding: 11px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: border-color .2s; }
+    .btn-ghost:hover { border-color: #666; }
+
+    /* ── NEXT PROJECT & FOOTER ───────────────────────────── */
+    .next-proj {
+      border-top: 0.5px solid var(--border);
+      padding: 28px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1140px; margin: 0 auto; text-decoration: none;
+    }
+    .next-lbl   { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+    .next-title { font-size: 16px; font-weight: 600; color: var(--text); }
+    .next-arr   { font-size: 22px; color: var(--muted); }
+    .footer-bar {
+      border-top: 0.5px solid var(--border); padding: 20px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: var(--muted);
+      max-width: 1140px; margin: 0 auto;
+    }
+    .footer-bar a { color: var(--muted); text-decoration: none; }
+    .footer-bar a:hover { color: var(--text); }
+
+    /* ── REVEAL ──────────────────────────────────────────── */
+    .rv { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+    .rv.in { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .page-wrap { grid-template-columns: 1fr; padding: 0 20px; }
+      .sidebar   { display: none; }
+      .nav       { padding: 0 20px; }
+      .hero      { padding: 48px 20px 0; }
+      .main-col  { padding-top: 48px; }
+      .cards-3, .pain-grid, .tk-grid { grid-template-columns: 1fr; }
+      .sec-stats { grid-template-columns: 1fr 1fr; }
+      .img-2col  { grid-template-columns: 1fr; }
+      .cta-blk   { flex-direction: column; align-items: flex-start; }
+      .next-proj { padding: 24px 20px; }
+      .footer-bar{ padding: 16px 20px; }
+      .hero-stats { gap: 20px; }
+      .hero-stat  { border-right: none; margin-right: 0; padding-right: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-logo">Victoria G. Foïde</span>
+  <span class="nav-badge">UX/UI · Mobile App</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tags rv">
+    <span class="tag tag-red">UX/UI Design</span>
+    <span class="tag">Mobile App</span>
+    <span class="tag">2025</span>
+    <span class="tag">Figma · User Research · Prototyping</span>
+  </div>
+
+  <h1 class="hero-h1 rv">
+    Designing the <em>F1 fan<br>experience</em><br>for the modern grid
+  </h1>
+
+  <p class="hero-desc rv">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+    veniam, quis nostrud exercitation.
+  </p>
+
+  <div class="hero-stats rv">
+    <div class="hero-stat">
+      <div class="hs-val">23</div>
+      <div class="hs-lbl">Screens designed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">5</div>
+      <div class="hs-lbl">Core user flows</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">iOS</div>
+      <div class="hs-lbl">Platform</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">6 wks</div>
+      <div class="hs-lbl">Concept to prototype</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 48px;">
+    <a href="https://www.figma.com/proto/VJFdGwMVCgMrTeXbeveyei/Apex-%E2%80%94-F1-Editorial-Fan-App?node-id=9-2&p=f&viewport=799%2C497%2C0.16&t=D7ewKFg1tXWacFN0-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=5%3A2&show-proto-sidebar=1&page-id=0%3A1" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; background:var(--red); color:#fff; font-family:var(--font); font-size:14px; font-weight:600; padding:12px 24px; border-radius:40px; text-decoration:none; box-shadow: 0 4px 20px rgba(232,0,13,0.30); transition: transform .2s, box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(232,0,13,0.40)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(232,0,13,0.30)'">
+      View Figma Prototype →
+    </a>
+  </div>
+
+  <!-- PHONE MOCKUPS -->
+  <div class="hero-phones rv">
+    <!-- Left phone → export as: images/apex/hero-01.png -->
+    <div class="phone phone-md" style="transform: rotate(-6deg) translateY(24px); opacity: .72;">
+      <img src="images/apex/hero-01.png" alt="APEX screen">
+    </div>
+
+    <!-- Center phone (hero) → export as: images/apex/hero-02.png -->
+    <div class="phone phone-lg" style="z-index: 2;">
+      <img src="images/apex/hero-02.png" alt="APEX home screen">
+    </div>
+
+    <!-- Right phone → export as: images/apex/hero-03.png -->
+    <div class="phone phone-md" style="transform: rotate(6deg) translateY(24px); opacity: .72;">
+      <img src="images/apex/hero-03.png" alt="APEX screen">
+    </div>
+  </div>
+</section>
+
+<!-- MAIN LAYOUT -->
+<div class="page-wrap">
+
+  <main class="main-col">
+
+    <!-- PROJECT OVERVIEW ──────────────────────────── -->
+    <section class="sec rv" id="overview">
+      <div class="sec-label">Project Overview</div>
+      <h2 class="sec-h2">Bringing Formula 1 closer to its fans</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+      <div class="cards-3">
+        <div class="info-card">
+          <div class="ic-icon">🎭</div>
+          <div class="ic-title">Role</div>
+          <div class="ic-body">UX/UI Designer — solo concept project. Research, visual design, prototyping &amp; design system.</div>
+          <span class="ic-tag">Personal project</span>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">📱</div>
+          <div class="ic-title">Platform</div>
+          <div class="ic-body">iOS mobile app, 390 × 844 px. 23 hi-fidelity screens connected in a full Figma prototype.</div>
+          <span class="ic-tag gray">iOS · Figma</span>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">⚡</div>
+          <div class="ic-title">Duration</div>
+          <div class="ic-body">6 weeks from initial concept and competitive audit through to hi-fi prototype and case study.</div>
+          <span class="ic-tag gray">6 weeks</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE CHALLENGE ─────────────────────────────── -->
+    <section class="sec rv" id="challenge">
+      <div class="sec-label">The Challenge</div>
+      <h2 class="sec-h2">What problem was worth solving?</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pc-icon">😤</div>
+          <div class="pc-title">Lorem ipsum dolor</div>
+          <div class="pc-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.</div>
+          <span class="pc-tag">Pain point #1</span>
+        </div>
+        <div class="pain-card">
+          <div class="pc-icon">🔍</div>
+          <div class="pc-title">Consectetur adipiscing</div>
+          <div class="pc-body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute.</div>
+          <span class="pc-tag">Pain point #2</span>
+        </div>
+        <div class="pain-card">
+          <div class="pc-icon">📊</div>
+          <div class="pc-title">Sed do eiusmod tempor</div>
+          <div class="pc-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint.</div>
+          <span class="pc-tag">Pain point #3</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- THE SOLUTION ──────────────────────────────── -->
+    <section class="sec rv" id="solution">
+      <div class="sec-label">The Solution</div>
+      <h2 class="sec-h2">Speed, clarity, and immersion</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Designing a native iOS experience for Formula 1 fans — fast, focused, and built around the moments that matter most.</p>
+
+      <ul class="goals">
+        <li>
+          <div class="g-icon">🏎️</div>
+          <div class="g-text"><strong>Real-time race experience</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>
+        </li>
+        <li>
+          <div class="g-icon">📊</div>
+          <div class="g-text"><strong>Clear data hierarchy</strong>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</div>
+        </li>
+        <li>
+          <div class="g-icon">🗺️</div>
+          <div class="g-text"><strong>Intuitive navigation system</strong>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</div>
+        </li>
+        <li>
+          <div class="g-icon">🌙</div>
+          <div class="g-text"><strong>Immersive dark-mode design</strong>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- DESIGN PROCESS ────────────────────────────── -->
+    <section class="sec rv" id="process">
+      <div class="sec-label">Design Process</div>
+      <h2 class="sec-h2">From research to prototype</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+
+      <div class="sec-stats">
+        <div class="sec-stat-cell"><div class="sec-stat-val">23</div><div class="sec-stat-lbl">Screens</div></div>
+        <div class="sec-stat-cell"><div class="sec-stat-val">5</div><div class="sec-stat-lbl">User Flows</div></div>
+        <div class="sec-stat-cell"><div class="sec-stat-val">6wk</div><div class="sec-stat-lbl">Delivery</div></div>
+        <div class="sec-stat-cell"><div class="sec-stat-val">12</div><div class="sec-stat-lbl">Interviews</div></div>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="ps-num">1</div>
+          <div><div class="ps-title">Research &amp; Discovery</div>
+          <div class="ps-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">2</div>
+          <div><div class="ps-title">Define &amp; Synthesise</div>
+          <div class="ps-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div></div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">3</div>
+          <div><div class="ps-title">Ideation &amp; Wireframes</div>
+          <div class="ps-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div></div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">4</div>
+          <div><div class="ps-title">High-Fidelity Prototype</div>
+          <div class="ps-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">5</div>
+          <div><div class="ps-title">Usability Testing</div>
+          <div class="ps-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</div></div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">6</div>
+          <div><div class="ps-title">Developer Handoff</div>
+          <div class="ps-desc">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.</div></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VISUAL ELEMENTS ───────────────────────────── -->
+    <section class="sec rv" id="visual">
+      <div class="sec-label">Visual Elements</div>
+      <h2 class="sec-h2">Colour, type, and motion</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+      <div class="img-blk short" style="margin:16px 0 8px;">
+        <div class="img-blk-inner" style="flex-direction:column; align-items:flex-start; gap:14px; padding:22px 28px;">
+          <div class="swatches">
+            <div class="swatch" style="background:#E8000D;"></div>
+            <div class="swatch" style="background:#0E0E0E; border:1px solid #333;"></div>
+            <div class="swatch" style="background:#1A1A1A;"></div>
+            <div class="swatch" style="background:#2C2C2C;"></div>
+            <div class="swatch" style="background:#FFFFFF;"></div>
+            <div class="swatch" style="background:#888888;"></div>
+            <div class="swatch" style="background:#FF4D4D;"></div>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-size:28px; font-weight:700; letter-spacing:-1px;">Aa</span>
+            <span class="type-label">Inter Bold — Display</span>
+            <span class="type-sample" style="font-size:18px;">Aa</span>
+            <span class="type-label">Inter Regular — Body</span>
+            <span class="type-sample" style="font-size:12px; font-weight:600; color:var(--red); text-transform:uppercase; letter-spacing:.08em;">Aa</span>
+            <span class="type-label">Inter SemiBold — Label</span>
+          </div>
+        </div>
+      </div>
+      <p class="img-cap">Colour system &amp; type scale — Inter typeface, racing red accent</p>
+
+      <div style="margin:16px 0 8px; border-radius: var(--radius-lg); overflow:hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.10);">
+        <img src="images/apex/nav1.png" alt="APEX Navigation, Data & Races screens" style="width:100%; display:block;">
+      </div>
+      <p class="img-cap">Navigation, data cards, and race timeline components</p>
+    </section>
+
+    <!-- FINAL DESIGNS ─────────────────────────────── -->
+    <section class="sec rv" id="final">
+      <div class="sec-label">Final Designs</div>
+      <h2 class="sec-h2">23 screens, 5 user flows</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+      <div style="margin:28px 0 8px; border-radius: var(--radius-lg); overflow:hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.10);">
+        <img src="images/apex/23screens.jpg" alt="All 23 APEX screens" style="width:100%; display:block;">
+      </div>
+      <p class="img-cap" style="margin-bottom:28px;">All 23 hi-fidelity screens — full design system</p>
+
+      <div style="margin:16px 0 8px; border-radius: var(--radius-lg); overflow:hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.10); background:#fff;">
+        <img src="images/apex/userflow.jpg" alt="Final high-fidelity screens — all 5 user flows" style="width:100%; display:block;">
+      </div>
+      <p class="img-cap">Final high-fidelity screens — all 5 user flows</p>
+
+      <div class="img-2col" style="margin-top:20px;">
+        <div style="border-radius: var(--radius-lg); overflow:hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.10);">
+          <img src="images/apex/driver-brand1.png" alt="Driver Profile & Brand" style="width:100%; display:block;">
+        </div>
+        <div style="border-radius: var(--radius-lg); overflow:hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.10);">
+          <img src="images/apex/driver-brand2.png" alt="Driver Profile & Brand" style="width:100%; display:block;">
+        </div>
+      </div>
+      <p class="img-cap">Driver Profile &amp; Brand screens</p>
+    </section>
+
+    <!-- REFLECTIONS ───────────────────────────────── -->
+    <section class="sec rv" id="reflections">
+      <div class="sec-label">Reflections</div>
+      <h2 class="sec-h2">What I learned building APEX</h2>
+
+      <div class="tk-grid">
+        <div class="tk-card">
+          <div class="tk-icon">🏎️</div>
+          <div class="tk-title">Speed matters in UX too</div>
+          <div class="tk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>
+        </div>
+        <div class="tk-card">
+          <div class="tk-icon">📐</div>
+          <div class="tk-title">Design systems save time</div>
+          <div class="tk-body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</div>
+        </div>
+        <div class="tk-card">
+          <div class="tk-icon">🔁</div>
+          <div class="tk-title">Test early, test often</div>
+          <div class="tk-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</div>
+        </div>
+        <div class="tk-card">
+          <div class="tk-icon">🤝</div>
+          <div class="tk-title">Co-design with engineers</div>
+          <div class="tk-body">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</div>
+        </div>
+        <div class="tk-card">
+          <div class="tk-icon">🎯</div>
+          <div class="tk-title">Define success upfront</div>
+          <div class="tk-body">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</div>
+        </div>
+        <div class="tk-card">
+          <div class="tk-icon">✨</div>
+          <div class="tk-title">Details make the difference</div>
+          <div class="tk-body">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia.</div>
+        </div>
+      </div>
+
+      <div class="sec-label" style="margin-top:36px;">Next Steps</div>
+      <p style="margin-top:8px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Stay tuned! 🏎️</p>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-blk rv">
+      <div>
+        <div class="cta-h">Want to collaborate?</div>
+        <div class="cta-sub">Open to UX/UI projects, internships &amp; creative collabs.</div>
+      </div>
+      <div class="cta-btns">
+        <a href="index.html#contact" class="btn-red">Get in touch →</a>
+        <a href="index.html#work" class="btn-ghost">All projects</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="toc-head">Contents</div>
+    <ul class="toc">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#challenge">The Challenge</a></li>
+      <li><a href="#solution">The Solution</a></li>
+      <li><a href="#process">Design Process</a></li>
+      <li><a href="#visual">Visual Elements</a></li>
+      <li><a href="#final">Final Designs</a></li>
+      <li><a href="#reflections">Reflections</a></li>
+    </ul>
+    <div class="toc-sep"></div>
+    <ul class="toc">
+      <li><a href="index.html">← Back to Portfolio</a></li>
+      <li><a href="case-study-uxui.html">Next project →</a></li>
+    </ul>
+  </aside>
+
+</div><!-- /page-wrap -->
+
+<!-- NEXT PROJECT -->
+<a href="case-study-uxui.html" class="next-proj">
+  <div>
+    <div class="next-lbl">Next Project</div>
+    <div class="next-title">UX/UI Dashboard Redesign →</div>
+  </div>
+  <span class="next-arr">→</span>
+</a>
+
+<!-- FOOTER -->
+<div class="footer-bar">
+  <span>© 2025 Victoria G. Foïde</span>
+  <span>Made with ☕ and way too many Figma frames</span>
+  <a href="index.html">Back to portfolio</a>
+</div>
+
+<script>
+  // Scroll reveal
+  const rv = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.rv').forEach(el => rv.observe(el));
+
+  // Active TOC highlight
+  const secs = document.querySelectorAll('section[id]');
+  const tocAs = document.querySelectorAll('.toc a[href^="#"]');
+  secs.forEach(s => new IntersectionObserver(
+    es => es.forEach(e => {
+      if (e.isIntersecting) {
+        tocAs.forEach(a => a.classList.remove('on'));
+        const a = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('on');
+      }
+    }),
+    { threshold: 0.35 }
+  ).observe(s));
+</script>
+</body>
+</html>

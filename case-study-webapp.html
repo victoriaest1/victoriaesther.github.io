@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data-Driven Web App — Victoria G. Foïde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* GREEN accent — Dev / Code projects */
+    :root {
+      --accent:      #3B6D11;
+      --accent-soft: rgba(59,109,17,0.08);
+      --accent-mid:  rgba(59,109,17,0.18);
+    }
+  </style>
+  <link rel="stylesheet" href="css/case-study-base.css" />
+</head>
+<body>
+
+  <div class="page-transition" id="page-transition"></div>
+  <div class="blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div></div>
+  <div class="pt" id="pt"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-back">← Back to Portfolio</a>
+    <span class="nav-logo">Victoria G. Foïde</span>
+    <span class="nav-tag">Frontend Dev</span>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-meta reveal">
+      <span class="hero-chip chip-green">Development</span>
+      <span class="hero-chip chip-muted">2024</span>
+      <span class="hero-chip chip-muted">JavaScript · D3.js · Node.js</span>
+    </div>
+    <h1 class="hero-h1 reveal rv2">
+      A <em>data visualisation</em> tool<br>that runs entirely in the browser
+    </h1>
+    <p class="hero-tagline reveal rv3">
+      Drag a CSV onto the page, see your data as interactive charts in under 2 seconds —
+      no SQL, no Excel, no server. Everything runs client-side for complete privacy.
+    </p>
+    <div class="stats-bar reveal">
+      <div class="stat-item"><div class="stat-val">10+</div><div class="stat-key">D3.js chart types</div></div>
+      <div class="stat-item"><div class="stat-val">&lt;2s</div><div class="stat-key">CSV to first chart</div></div>
+      <div class="stat-item"><div class="stat-val">0</div><div class="stat-key">External dependencies</div></div>
+      <div class="stat-item"><div class="stat-val">5 wks</div><div class="stat-key">Concept to deploy</div></div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Project Overview</div>
+    <div class="overview-grid reveal rv2">
+      <div class="overview-card glass">
+        <div class="ov-label">My Role</div>
+        <div class="ov-value">Frontend Developer</div>
+      </div>
+      <div class="overview-card glass">
+        <div class="ov-label">Tools</div>
+        <div class="ov-value">JavaScript</div>
+        <div class="ov-sub">D3.js · Node.js</div>
+      </div>
+      <div class="overview-card glass">
+        <div class="ov-label">Timeline</div>
+        <div class="ov-value">5 Weeks</div>
+      </div>
+      <div class="overview-card glass">
+        <div class="ov-label">Platform</div>
+        <div class="ov-value">Web App</div>
+        <div class="ov-sub">Static hosting, client-side only</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHALLENGE -->
+  <div class="section">
+    <div class="section-eyebrow reveal">The Challenge</div>
+    <h2 class="section-h2 reveal rv2">Raw data is useless without a lens</h2>
+    <p class="body-text reveal rv3">
+      Finance teams export CSVs constantly. Most of those files sit unopened because non-analysts
+      can't make sense of them without pivot tables, SQL knowledge, or hours in Excel.
+      The goal was to build something anyone could use to explore financial data instantly —
+      no technical setup required.
+    </p>
+    <p class="body-text reveal rv3">
+      One hard constraint from the start: no backend, no accounts, no servers. Data is personal —
+      it should never leave the user's browser. Everything had to run entirely client-side.
+    </p>
+    <div class="quote-block reveal">
+      <div class="quote-text">"Can you just make it so I can see my data without opening Excel?"</div>
+      <div class="quote-attr">— Finance analyst, during user discovery</div>
+    </div>
+  </div>
+
+  <!-- IMAGE PLACEHOLDER -->
+  <div class="img-wrap">
+    <div class="img-inner reveal">
+      <div class="img-label">📸 Add your architecture diagram or early wireframe here</div>
+    </div>
+    <div class="img-caption">Architecture sketch and early UI concepts — replace with actual project screenshots</div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Process</div>
+    <h2 class="section-h2 reveal rv2">How I built it</h2>
+    <div class="process-steps reveal rv2">
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Discovery</div>
+        <div class="ps-sub">User needs, data formats</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Architecture</div>
+        <div class="ps-sub">Client-side only plan</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Build</div>
+        <div class="ps-sub">D3.js charts, CSV parser</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Test</div>
+        <div class="ps-sub">Cross-browser, edge cases</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-dot active">→</div>
+        <div class="ps-name">Deploy</div>
+        <div class="ps-sub">Static hosting, zero deps</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="section">
+    <div class="section-eyebrow reveal">The Solution</div>
+    <h2 class="section-h2 reveal rv2">Drag, drop, explore</h2>
+    <p class="body-text reveal rv3">
+      Users drag a CSV onto the page and immediately see category breakdowns, trend lines, and
+      month-over-month comparisons — all rendered with D3.js in real time. Column headers are
+      auto-detected, dates parsed automatically, and charts update instantly as users filter by
+      date range or category.
+    </p>
+    <p class="body-text reveal rv3">
+      Everything runs client-side. No data ever leaves the browser. The app is deployed as static
+      files on GitHub Pages — no server costs, no maintenance, no downtime risk.
+    </p>
+  </div>
+
+  <!-- IMAGE PLACEHOLDER — final output -->
+  <div class="img-wrap">
+    <div class="img-inner reveal">
+      <div class="img-label">📸 Add a screenshot of the live app here</div>
+    </div>
+    <div class="img-caption">Live application — replace with a real screenshot of the chart interface</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Results</div>
+    <h2 class="section-h2 reveal rv2">Numbers that tell the story</h2>
+    <div class="results-grid reveal rv2">
+      <div class="result-box glass">
+        <div class="result-val">10+</div>
+        <div class="result-label">D3.js chart types implemented</div>
+      </div>
+      <div class="result-box glass">
+        <div class="result-val">&lt;2s</div>
+        <div class="result-label">CSV upload to first rendered chart</div>
+      </div>
+      <div class="result-box glass">
+        <div class="result-val">100%</div>
+        <div class="result-label">Client-side — zero data ever sent to a server</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNINGS -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Reflections</div>
+    <h2 class="section-h2 reveal rv2">What I'd do differently</h2>
+    <div class="reveal rv2">
+      <div class="learning-item glass">
+        <div class="ld"></div>
+        <div class="learning-text">
+          <strong>D3.js has a steep learning curve — start with the data model.</strong> I jumped
+          straight into the DOM manipulation and got lost. Starting with a clean data pipeline
+          before touching rendering made the second half of the project twice as fast.
+        </div>
+      </div>
+      <div class="learning-item glass">
+        <div class="ld"></div>
+        <div class="learning-text">
+          <strong>Date parsing edge cases are endless.</strong> Different locales, different
+          separators, different column names for the same concept. Building a fuzzy date parser
+          from day one would have saved three days of debugging.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="reveal">
+      <div class="cta-h">Looking for a frontend developer?</div>
+      <div class="cta-sub">Open to frontend roles, freelance builds, and internships.</div>
+    </div>
+    <div class="cta-btns reveal rv2">
+      <a href="index.html#contact" class="btn-accent">Get in touch →</a>
+      <a href="index.html#work" class="btn-outline">All projects</a>
+    </div>
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <div class="next-project">
+    <a href="case-study-data.html" class="next-inner">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">Predictive Finance Model — AI & Data Science</div>
+      </div>
+      <div class="next-arrow">→</div>
+    </a>
+  </div>
+
+  <script>
+    const pt = document.getElementById('pt');
+    window.addEventListener('scroll', () => {
+      pt.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+    });
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    setTimeout(() => document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible')), 80);
+    const overlay = document.getElementById('page-transition');
+    requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('fade-out')));
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href]');
+      if (a && a.href.includes('.html') && !a.href.includes('#')) {
+        e.preventDefault(); overlay.classList.remove('fade-out');
+        setTimeout(() => window.location.href = a.href, 420);
+      }
+    });
+  </script>
+</body>
+</html>

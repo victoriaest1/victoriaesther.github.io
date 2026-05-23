@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend Dev Case Study — Victoria G. Foïde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/case-study-dev.css" />
+</head>
+<body>
+  <div class="pt" id="pt"></div>
+  <div class="blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-back">← Back to Portfolio</a>
+    <span class="nav-logo">Victoria G. Foïde</span>
+    <span class="nav-tag">Frontend Dev</span>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-meta reveal">
+      <span class="hero-chip chip-green">Frontend Development</span>
+      <span class="hero-chip chip-muted">2024</span>
+      <span class="hero-chip chip-muted">React · Framer · JavaScript</span>
+    </div>
+    <h1 class="hero-h1 reveal rv2">
+      Building my portfolio — <em>from Figma<br>to production</em> in 3 weeks
+    </h1>
+    <p class="hero-tagline reveal rv3">
+      Designing and engineering a glassmorphism portfolio site with fluid animations,
+      magnetic interactions, 3D tilt effects, and a perfect Lighthouse score.
+      No frameworks beyond vanilla JS.
+    </p>
+    <div class="hero-links reveal rv3">
+      <a href="#" class="hero-link hl-primary">🚀 Live site</a>
+      <a href="#" class="hero-link hl-ghost">⭐ GitHub</a>
+      <a href="case-study-uxui.html" class="hero-link hl-ghost">🎨 UX process</a>
+    </div>
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-val">100</div>
+        <div class="stat-key">Lighthouse Performance</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">3 wks</div>
+        <div class="stat-key">Design to deploy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">0</div>
+        <div class="stat-key">External JS libraries</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">620</div>
+        <div class="stat-key">Lines of code</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="stack-wrap">
+    <div class="stack-label reveal">Tech stack</div>
+    <div class="stack-row reveal rv2">
+      <div class="stack-pill"><span class="sp-dot dot-html"></span> HTML5</div>
+      <div class="stack-pill"><span class="sp-dot dot-css"></span> CSS3</div>
+      <div class="stack-pill"><span class="sp-dot dot-js"></span> Vanilla JS</div>
+      <div class="stack-pill"><span class="sp-dot dot-react"></span> React (via Framer)</div>
+      <div class="stack-pill"><span class="sp-dot dot-framer"></span> Framer</div>
+      <div class="stack-pill"><span class="sp-dot dot-figma"></span> Figma</div>
+      <div class="stack-pill"><span class="sp-dot dot-git"></span> Git / GitHub</div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Architecture</div>
+    <h2 class="section-h2 reveal rv2">How the site is structured</h2>
+    <p class="section-lead reveal rv3">Single-page HTML with JS modules for cards, animations, and interactions. No build step, no bundler — ships as static files to Framer's CDN.</p>
+    <div class="arch reveal">
+      <div class="arch-row">
+        <div class="arch-node an-browser">🌐 Browser</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node an-react">⚛ HTML + JS</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node an-api">🧠 IntersectionObserver</div>
+        <div class="arch-note">scroll reveal</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-node an-browser" style="opacity:0;pointer-events:none">.</div>
+        <div class="arch-arrow" style="opacity:0">→</div>
+        <div class="arch-node an-cdn">📦 Framer CDN</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node an-db">🗂 Static Assets</div>
+        <div class="arch-note">fonts, images</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODE -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Code highlight</div>
+    <h2 class="section-h2 reveal rv2">The 3D tilt interaction</h2>
+    <p class="section-lead reveal rv3">The hero card tilts on mouse move using CSS <code style="font-family:var(--mono);font-size:0.9em">perspective()</code> and a JS event listener — no library, under 15 lines.</p>
+    <div class="code-wrap reveal">
+      <div class="code-tab-row">
+        <div class="code-tab active">tilt.js</div>
+        <div class="code-tab">magnetic.js</div>
+        <div class="code-tab">transition.js</div>
+      </div>
+      <div class="code-body">
+        <code>
+<span class="cc">// 3D tilt effect — hero card on mousemove</span>
+<span class="ck">const</span> <span class="cp">card</span> = document.<span class="cf">getElementById</span>(<span class="cs">'hero-tilt-card'</span>);<br><br>
+card.<span class="cf">addEventListener</span>(<span class="cs">'mousemove'</span>, <span class="cp">e</span> => {
+  <span class="ck">const</span> <span class="cp">rect</span> = card.<span class="cf">getBoundingClientRect</span>();
+  <span class="ck">const</span> <span class="cp">x</span> = (e.clientX - rect.left)  / rect.width  - <span class="cn">0.5</span>;
+  <span class="ck">const</span> <span class="cp">y</span> = (e.clientY - rect.top)   / rect.height - <span class="cn">0.5</span>;
+
+  card.style.transform = <span class="cs">`perspective(700px)
+    rotateY(${</span><span class="cp">x</span> * <span class="cn">14</span><span class="cs">}deg)
+    rotateX(${</span>-<span class="cp">y</span> * <span class="cn">14</span><span class="cs">}deg)
+    scale(1.03)`</span>;
+  card.style.boxShadow = <span class="cs">`${</span>-<span class="cp">x</span> * <span class="cn">24</span><span class="cs">}px ${</span>-<span class="cp">y</span> * <span class="cn">18</span><span class="cs">}px 48px rgba(212,83,126,0.13)`</span>;
+});<br><br>
+card.<span class="cf">addEventListener</span>(<span class="cs">'mouseleave'</span>, () => {
+  card.style.transform = <span class="cs">''</span>;      <span class="cc">// spring-back via CSS transition</span>
+  card.style.boxShadow = <span class="cs">''</span>;
+});
+        </code>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHALLENGES -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Technical challenges</div>
+    <h2 class="section-h2 reveal rv2">Problems I had to solve</h2>
+    <div class="challenges-grid">
+      <div class="challenge-card reveal">
+        <div class="ch-label problem">Problem</div>
+        <div class="ch-title">Gradient text + CSS transform conflict</div>
+        <div class="ch-body">Applying <code style="font-family:var(--mono);font-size:0.85em">-webkit-text-fill-color: transparent</code> on gradient text caused the 3D tilt to show a black background instead of the page on some browsers.</div>
+        <span class="ch-code">→ Fixed with isolate + z-index stacking context</span>
+      </div>
+      <div class="challenge-card reveal rv2">
+        <div class="ch-label solution">Solution</div>
+        <div class="ch-title">Isolated each gradient text element</div>
+        <div class="ch-body">Wrapping gradient text in a container with <code style="font-family:var(--mono);font-size:0.85em">isolation: isolate</code> and keeping the tilt transform on the parent card resolved the compositing issue cleanly.</div>
+        <span class="ch-code">→ Works across Safari, Chrome, Firefox</span>
+      </div>
+      <div class="challenge-card reveal rv3">
+        <div class="ch-label problem">Problem</div>
+        <div class="ch-title">Scroll reveal re-triggering on filter</div>
+        <div class="ch-body">When filtering project cards, newly rendered cards had the <code style="font-family:var(--mono);font-size:0.85em">.reveal</code> class but were never observed by the IntersectionObserver since it was set up at init.</div>
+        <span class="ch-code">→ Observer needed re-registration</span>
+      </div>
+      <div class="challenge-card reveal">
+        <div class="ch-label solution">Solution</div>
+        <div class="ch-title">Observe after every renderCards() call</div>
+        <div class="ch-body">After each <code style="font-family:var(--mono);font-size:0.85em">renderCards()</code> call, re-queried for <code style="font-family:var(--mono);font-size:0.85em">#cards-grid .reveal</code> and registered each with <code style="font-family:var(--mono);font-size:0.85em">observer.observe()</code>. Immediately triggers visible ones already in viewport.</div>
+        <span class="ch-code">→ Smooth filter transitions every time</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTHOUSE -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Performance</div>
+    <h2 class="section-h2 reveal rv2">Lighthouse audit results</h2>
+    <p class="section-lead reveal rv3">Static HTML + CDN fonts + no blocking JS = near-perfect scores across all four Lighthouse categories.</p>
+    <div class="lh-grid" id="lh-grid">
+      <div class="lh-card reveal">
+        <div class="lh-ring">
+          <svg class="lh-svg" viewBox="0 0 68 68" width="68" height="68">
+            <circle class="lh-track" cx="34" cy="34" r="28"/>
+            <circle class="lh-fill green" cx="34" cy="34" r="28" stroke-dasharray="175.9" stroke-dashoffset="0" id="lh-perf"/>
+          </svg>
+          <div class="lh-num green">100</div>
+        </div>
+        <div class="lh-label">Performance</div>
+      </div>
+      <div class="lh-card reveal rv2">
+        <div class="lh-ring">
+          <svg class="lh-svg" viewBox="0 0 68 68" width="68" height="68">
+            <circle class="lh-track" cx="34" cy="34" r="28"/>
+            <circle class="lh-fill green" cx="34" cy="34" r="28" stroke-dasharray="175.9" stroke-dashoffset="0" id="lh-a11y"/>
+          </svg>
+          <div class="lh-num green">98</div>
+        </div>
+        <div class="lh-label">Accessibility</div>
+      </div>
+      <div class="lh-card reveal rv3">
+        <div class="lh-ring">
+          <svg class="lh-svg" viewBox="0 0 68 68" width="68" height="68">
+            <circle class="lh-track" cx="34" cy="34" r="28"/>
+            <circle class="lh-fill green" cx="34" cy="34" r="28" stroke-dasharray="175.9" stroke-dashoffset="3.5" id="lh-bp"/>
+          </svg>
+          <div class="lh-num green">100</div>
+        </div>
+        <div class="lh-label">Best Practices</div>
+      </div>
+      <div class="lh-card reveal">
+        <div class="lh-ring">
+          <svg class="lh-svg" viewBox="0 0 68 68" width="68" height="68">
+            <circle class="lh-track" cx="34" cy="34" r="28"/>
+            <circle class="lh-fill green" cx="34" cy="34" r="28" stroke-dasharray="175.9" stroke-dashoffset="0" id="lh-seo"/>
+          </svg>
+          <div class="lh-num green">100</div>
+        </div>
+        <div class="lh-label">SEO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="reveal">
+      <div class="cta-h">Looking for a frontend developer?</div>
+      <div class="cta-sub">Open to frontend roles, freelance builds, and internships.</div>
+    </div>
+    <div class="cta-btns reveal rv2">
+      <a href="index.html#contact" class="btn-accent">Get in touch →</a>
+      <a href="index.html#work" class="btn-outline">All projects</a>
+    </div>
+  </div>
+
+  <div class="next-project">
+    <a href="case-study-uxui.html" class="next-inner">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">Product Dashboard Design — UX/UI</div>
+      </div>
+      <div class="next-arrow">→</div>
+    </a>
+  </div>
+
+  <script src="js/case-study-dev.js"></script>
+</body>
+</html>

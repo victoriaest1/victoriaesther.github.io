@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✏️ EDIT: Change "Project Name" to your project title -->
+  <title>Project Name — Victoria G. Foïde</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ╔════════════════════════════════════════════════════════╗
+       ║  ✏️ STEP 1 — PICK YOUR ACCENT COLOUR                  ║
+       ║                                                        ║
+       ║  Copy one of these sets and paste it below:           ║
+       ║                                                        ║
+       ║  PINK  (Design / UX / UI)                             ║
+       ║    --accent:      #D4537E;                            ║
+       ║    --accent-soft: rgba(212,83,126,0.08);              ║
+       ║    --accent-mid:  rgba(212,83,126,0.18);              ║
+       ║                                                        ║
+       ║  GREEN (Dev / Code / Web)                             ║
+       ║    --accent:      #3B6D11;                            ║
+       ║    --accent-soft: rgba(59,109,17,0.08);               ║
+       ║    --accent-mid:  rgba(59,109,17,0.18);               ║
+       ║                                                        ║
+       ║  GOLD  (AI / Data Science / ML)                       ║
+       ║    --accent:      #8B6B09;                            ║
+       ║    --accent-soft: rgba(139,107,9,0.08);               ║
+       ║    --accent-mid:  rgba(139,107,9,0.18);               ║
+       ║                                                        ║
+       ║  BLUE  (Finance / BI / Analytics)                     ║
+       ║    --accent:      #1A5FAB;                            ║
+       ║    --accent-soft: rgba(26,95,171,0.08);               ║
+       ║    --accent-mid:  rgba(26,95,171,0.18);               ║
+       ╚════════════════════════════════════════════════════════╝ */
+    :root {
+      --accent:      #D4537E;
+      --accent-soft: rgba(212,83,126,0.08);
+      --accent-mid:  rgba(212,83,126,0.18);
+    }
+  </style>
+
+  <!-- Shared styles — do not remove this line -->
+  <link rel="stylesheet" href="css/case-study-base.css" />
+</head>
+<body>
+
+  <!-- Fade transition overlay (don't touch) -->
+  <div class="page-transition" id="page-transition"></div>
+
+  <!-- Decorative background blobs (don't touch) -->
+  <div class="blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <!-- Scroll progress bar (don't touch) -->
+  <div class="pt" id="pt"></div>
+
+
+  <!-- ════════════════════════════════════════════════
+       NAV BAR
+       ════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <a href="index.html" class="nav-back">← Back to Portfolio</a>
+    <span class="nav-logo">Victoria G. Foïde</span>
+    <!-- ✏️ EDIT: label shown top-right — match your project type -->
+    <span class="nav-tag">UX/UI Design</span>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════════════ -->
+  <div class="hero">
+
+    <div class="hero-meta reveal">
+      <!-- ✏️ EDIT: first chip colour → chip-pink / chip-green / chip-gold / chip-blue -->
+      <span class="hero-chip chip-pink">UX/UI Design</span>
+      <!-- ✏️ EDIT: year -->
+      <span class="hero-chip chip-muted">2024</span>
+      <!-- ✏️ EDIT: tools used, separated by · -->
+      <span class="hero-chip chip-muted">Figma · Prototyping · Research</span>
+    </div>
+
+    <h1 class="hero-h1 reveal rv2">
+      <!-- ✏️ EDIT: main headline — wrap 2–3 key words in <em> for italic pink accent -->
+      Your <em>project title</em><br>goes here
+    </h1>
+
+    <p class="hero-tagline reveal rv3">
+      <!-- ✏️ EDIT: 1–2 sentences. What did you build? What was the result? -->
+      A short, punchy description of what this project is about and what impact it had.
+      Keep it to 2 sentences max.
+    </p>
+
+    <!-- ✏️ EDIT: 4 headline stats. HIDE THIS BAR: add style="display:none" to the div below -->
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-val">00</div>       <!-- ✏️ EDIT: number -->
+        <div class="stat-key">Metric one</div> <!-- ✏️ EDIT: label -->
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">00</div>
+        <div class="stat-key">Metric two</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">00</div>
+        <div class="stat-key">Metric three</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">00</div>
+        <div class="stat-key">Metric four</div>
+      </div>
+    </div>
+
+  </div><!-- /hero -->
+
+
+  <!-- ════════════════════════════════════════════════
+       OVERVIEW CARDS  (role / tools / timeline / platform)
+       HIDE: add style="display:none" to the <div class="section"> below
+       ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Project Overview</div>
+    <div class="overview-grid reveal rv2">
+
+      <div class="overview-card glass">
+        <div class="ov-label">My Role</div>
+        <div class="ov-value">UX/UI Designer</div>  <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="overview-card glass">
+        <div class="ov-label">Tools</div>
+        <div class="ov-value">Figma</div>            <!-- ✏️ EDIT: main tool -->
+        <div class="ov-sub">Prototyping · Research</div> <!-- ✏️ EDIT: other tools -->
+      </div>
+
+      <div class="overview-card glass">
+        <div class="ov-label">Timeline</div>
+        <div class="ov-value">4 Weeks</div>          <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="overview-card glass">
+        <div class="ov-label">Platform</div>
+        <div class="ov-value">iOS & Android</div>    <!-- ✏️ EDIT: Web App / Desktop / Mobile / etc. -->
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       THE CHALLENGE
+       HIDE: add style="display:none" to the section div
+       ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-eyebrow reveal">The Challenge</div>
+    <h2 class="section-h2 reveal rv2">
+      <!-- ✏️ EDIT: a short title for the problem you faced -->
+      What problem were you solving?
+    </h2>
+
+    <!-- ✏️ EDIT: 1–2 paragraphs. What was broken? Who was affected? Why did it matter? -->
+    <p class="body-text reveal rv3">
+      Describe the context and the problem. Give enough background that a recruiter
+      who doesn't know your project understands why it needed to exist.
+    </p>
+    <!-- ✏️ EDIT: delete this second paragraph if you don't need it -->
+    <p class="body-text reveal rv3">
+      Optional second paragraph with more detail on constraints, users, or the brief.
+    </p>
+
+    <!-- ✏️ EDIT: a real quote — from a user interview, your brief, or a stakeholder -->
+    <div class="quote-block reveal">
+      <div class="quote-text">"A memorable quote that captures the core problem."</div>
+      <div class="quote-attr">— Who said this, and in what context</div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       IMAGE / SCREENSHOT — Before state or research
+       HIDE: add style="display:none" to the img-wrap div
+       ════════════════════════════════════════════════ -->
+  <div class="img-wrap">
+    <div class="img-inner reveal">
+      <!-- ✏️ EDIT: replace the div below with an <img> tag when you have screenshots:
+           <img src="images/your-screenshot.png" alt="Before state" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
+      -->
+      <div class="img-label">📸 Add your before / research screenshot here</div>
+    </div>
+    <!-- ✏️ EDIT: caption text below the image -->
+    <div class="img-caption">Research documentation or original state — replace with real screenshots</div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       PROCESS STEPS
+       HIDE: add style="display:none" to the section div
+       ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Process</div>
+    <h2 class="section-h2 reveal rv2">How I approached it</h2>
+
+    <!-- ✏️ EDIT: rename steps and sub-labels to match YOUR process.
+         Dot states: done (filled) / active (outlined, current step) / idle (grey, not started)
+         Add or remove <div class="process-step"> blocks freely. -->
+    <div class="process-steps reveal rv2">
+
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Research</div>            <!-- ✏️ EDIT -->
+        <div class="ps-sub">User interviews, audit</div> <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Define</div>              <!-- ✏️ EDIT -->
+        <div class="ps-sub">Personas, pain points</div> <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="process-step">
+        <div class="ps-dot done">✓</div>
+        <div class="ps-name">Design</div>              <!-- ✏️ EDIT -->
+        <div class="ps-sub">Wireframes, hi-fi</div>    <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="process-step">
+        <div class="ps-dot active">→</div>
+        <div class="ps-name">Test</div>                <!-- ✏️ EDIT -->
+        <div class="ps-sub">Usability sessions</div>   <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="process-step">
+        <div class="ps-dot idle">5</div>
+        <div class="ps-name">Deliver</div>             <!-- ✏️ EDIT -->
+        <div class="ps-sub">Handoff, specs</div>       <!-- ✏️ EDIT -->
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       THE SOLUTION
+       HIDE: add style="display:none" to the section div
+       ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-eyebrow reveal">The Solution</div>
+    <h2 class="section-h2 reveal rv2">
+      <!-- ✏️ EDIT: punchy title for your solution -->
+      What you built or designed
+    </h2>
+
+    <!-- ✏️ EDIT: 1–2 paragraphs. Be specific — what decisions did you make and why? -->
+    <p class="body-text reveal rv3">
+      Describe your solution. Focus on decisions: what you included and excluded, and why.
+      "I used progressive disclosure to..." is better than "I made it simpler."
+    </p>
+    <!-- ✏️ EDIT: delete this second paragraph if you don't need it -->
+    <p class="body-text reveal rv3">
+      Optional second paragraph. You can describe a specific feature, technical decision, or design choice.
+    </p>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       IMAGE / SCREENSHOT — Final output
+       HIDE: add style="display:none" to the img-wrap div
+       ════════════════════════════════════════════════ -->
+  <div class="img-wrap">
+    <div class="img-inner reveal">
+      <!-- ✏️ EDIT: replace with <img> tag when you have screenshots -->
+      <div class="img-label">📸 Add your final output / screenshot here</div>
+    </div>
+    <div class="img-caption">Final design — replace with your actual screenshots or mockups</div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       RESULTS
+       HIDE: add style="display:none" to the section div if you have no metrics yet
+       ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Results</div>
+    <h2 class="section-h2 reveal rv2">Numbers that tell the story</h2>
+
+    <!-- ✏️ EDIT: change val + label for each box. Add or remove boxes as needed. -->
+    <div class="results-grid reveal rv2">
+
+      <div class="result-box glass">
+        <div class="result-val">00%</div>     <!-- ✏️ EDIT: number / stat -->
+        <div class="result-label">Result metric one — brief explanation</div> <!-- ✏️ EDIT -->
+      </div>
+
+      <div class="result-box glass">
+        <div class="result-val">00</div>
+        <div class="result-label">Result metric two — brief explanation</div>
+      </div>
+
+      <div class="result-box glass">
+        <div class="result-val">00</div>
+        <div class="result-label">Result metric three — brief explanation</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       LEARNINGS / REFLECTIONS
+       HIDE: add style="display:none" to the section div
+       ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-eyebrow reveal">Reflections</div>
+    <h2 class="section-h2 reveal rv2">What I'd do differently</h2>
+
+    <!-- ✏️ EDIT: each learning-item is one bullet. Add or remove freely. -->
+    <div class="reveal rv2">
+
+      <div class="learning-item glass">
+        <div class="ld"></div>
+        <div class="learning-text">
+          <!-- ✏️ EDIT: bold the key lesson, then explain it -->
+          <strong>First learning.</strong> What you discovered and what you'd do differently next time.
+          Honest reflections show maturity — recruiters love this section.
+        </div>
+      </div>
+
+      <div class="learning-item glass">
+        <div class="ld"></div>
+        <div class="learning-text">
+          <strong>Second learning.</strong> Another reflection. Keep each one specific and genuine.
+        </div>
+      </div>
+
+      <div class="learning-item glass">
+        <div class="ld"></div>
+        <div class="learning-text">
+          <strong>Third learning.</strong> Add or delete bullet points as needed — 2 to 4 is ideal.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       CTA  (call to action)
+       ════════════════════════════════════════════════ -->
+  <div class="cta-section">
+    <div class="reveal">
+      <!-- ✏️ EDIT: headline and sub-line -->
+      <div class="cta-h">Want to work together?</div>
+      <div class="cta-sub">Open to internships, freelance projects, and collaborations.</div>
+    </div>
+    <div class="cta-btns reveal rv2">
+      <a href="index.html#contact" class="btn-accent">Get in touch →</a>
+      <a href="index.html#work" class="btn-outline">All projects</a>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════
+       NEXT PROJECT BANNER
+       ════════════════════════════════════════════════ -->
+  <div class="next-project">
+    <!-- ✏️ EDIT: change href to the next case study file, and update the title -->
+    <a href="case-study-template.html" class="next-inner">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">Next Project Title Here</div> <!-- ✏️ EDIT -->
+      </div>
+      <div class="next-arrow">→</div>
+    </a>
+  </div>
+
+
+  <script>
+    // ── Progress bar ──────────────────────────────
+    const pt = document.getElementById('pt');
+    window.addEventListener('scroll', () => {
+      pt.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+    });
+
+    // ── Scroll reveal ─────────────────────────────
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    setTimeout(() => document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible')), 80);
+
+    // ── Page transition ───────────────────────────
+    const overlay = document.getElementById('page-transition');
+    requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('fade-out')));
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href]');
+      if (a && a.href.includes('.html') && !a.href.includes('#')) {
+        e.preventDefault();
+        overlay.classList.remove('fade-out');
+        setTimeout(() => window.location.href = a.href, 420);
+      }
+    });
+  </script>
+
+</body>
+</html>
